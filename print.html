@@ -101,10 +101,10 @@ body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-pri
 .qrc img{width:27mm;height:27mm}
 .qrc b{font-family:'Lalezar',serif;font-weight:400;font-size:10.5pt;color:var(--maroon);line-height:1.1}
 .qrc span{font-size:6pt;font-weight:700;color:var(--muted);line-height:1.2}
-.ph{display:grid;grid-template-columns:auto 1fr;gap:.6mm 2.5mm;align-items:center;font-size:12.5pt;font-weight:800;width:100%;padding:0 3mm}
-.ph i{font-style:normal;font-size:7pt;font-weight:800;color:var(--maroon-d);background:var(--gold);border-radius:9mm;padding:0 2.4mm;text-align:center}
-.ph span{direction:ltr;text-align:right;letter-spacing:.2mm}
-.addr{font-size:7.6pt;opacity:.9;line-height:1.45}
+.phones{display:grid;grid-template-columns:auto 1fr;gap:1.4mm 3mm;align-items:center;font-size:17.5pt;font-weight:900;width:100%;padding:0 1mm;line-height:1.15}
+.phones i{font-style:normal;font-size:9.5pt;font-weight:900;color:var(--maroon-d);background:var(--gold);border-radius:9mm;padding:.4mm 3mm;text-align:center}
+.phones span{direction:ltr;text-align:right;letter-spacing:.3mm}
+.addr{font-size:11pt;font-weight:700;line-height:1.4;background:rgba(0,0,0,.22);border:.35mm solid rgba(242,174,0,.55);border-radius:3mm;padding:2mm 3mm;width:100%}
 .cover .ai{top:auto;bottom:4mm;left:50%;transform:translateX(-50%);white-space:nowrap}
 
 /* ---------- جزء غامق (الضهر الأخير) ---------- */
@@ -279,7 +279,7 @@ body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-pri
         <div class="qrc"><img src="assets/qr-menu.svg" alt=""><b>المنيو الإلكتروني</b><span>امسح وشوف المنيو على موبايلك</span></div>
         <div class="qrc"><img src="assets/qr-site.svg" alt=""><b>موقعنا</b><span>اطلب أونلاين على واتساب</span></div>
       </div>
-      <div class="ph">
+      <div class="phones">
         <i>واتساب</i><span>${esc(CONFIG.waDisplay)}</span>
         <i>اتصال</i><span>${esc(CONFIG.phoneMobile)}</span>
         <i>أرضي</i><span>${esc(CONFIG.phoneLandline)}</span>
