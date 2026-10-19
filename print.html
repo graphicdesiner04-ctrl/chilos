@@ -127,7 +127,85 @@ body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-pri
 .drinks li b{color:var(--gold-l)}
 .fin{margin-top:auto;text-align:center;font-size:6.4pt;opacity:.75}
 
-.over{outline:2mm solid red;outline-offset:-2mm}
+
+/* ============ شخصيات الأجزاء (كل جزء له خلفية وطريقة صورة مختلفة) ============ */
+.pn.k-cream{background:var(--cream)}
+.pn.k-butter{background:#fdf0db}
+.pn.k-kraft{background:#f3e3cc}
+.pn.k-kraft::before{opacity:.9;background:
+  repeating-linear-gradient(90deg,rgba(120,80,40,.035) 0 1.2mm,transparent 1.2mm 3mm),
+  radial-gradient(circle at 80% 90%,rgba(122,22,38,.07),transparent 40%)}
+.pn.k-blush{background:#fff0ec}
+.pn.k-blush::before{opacity:.8;background:
+  radial-gradient(circle at 10% 8%,rgba(200,40,59,.08),transparent 30%),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 26c-3-6-12-4-10 3 1 4 10 9 10 9s9-5 10-9c2-7-7-9-10-3z' fill='%23c8283b' fill-opacity='.035'/%3E%3C/svg%3E")}
+.pn.k-wine,.pn.k-char{color:#f8ece4}
+.pn.k-wine{background:linear-gradient(180deg,#6b1222,#4a0b17)}
+.pn.k-char{background:linear-gradient(180deg,#2f2729,#221c1d)}
+.pn.k-wine::before,.pn.k-char::before{opacity:.22}
+.k-wine .nm,.k-char .nm{border-bottom-color:rgba(255,255,255,.16)}
+.k-wine .nm small,.k-char .nm small,.k-wine .note,.k-char .note{color:#e3c8bd}
+.k-wine .tbl .h,.k-char .tbl .h,.k-wine .grp,.k-char .grp{color:var(--gold)}
+.k-wine .grp::after,.k-char .grp::after{background:linear-gradient(90deg,transparent,rgba(242,174,0,.45))}
+/* كبسولات مختلفة حسب الجزء */
+.k-wine .cap{background:var(--gold)} .k-wine .cap.alt{background:#fff1de}
+.k-wine .pc{color:var(--maroon-d)}
+.k-char .cap{background:var(--maroon)} .k-char .cap.alt{background:var(--gold)}
+.k-kraft .cap{background:#8a2a1c} .k-kraft .cap.alt{background:#3b2a22}
+.k-blush .cap{background:#b0203a} .k-blush .cap.alt{background:#5a2330}
+.k-butter .cap.alt{background:#b5761a}
+.k-wine .star,.k-char .star{background:linear-gradient(120deg,rgba(0,0,0,.28),rgba(0,0,0,.12));border:.35mm solid rgba(242,174,0,.5);box-shadow:none}
+
+/* ---------- الهيدر ---------- */
+.hdr{position:relative;height:var(--h);flex:none}
+.hdr .ttl{position:absolute;z-index:4;bottom:0;right:6mm}
+.hdr .ttl .brush{margin:0}
+.lbl{position:absolute;z-index:5;font-size:5.4pt;font-weight:700;color:#fff;background:rgba(0,0,0,.5);padding:0 2mm;border-radius:9mm;white-space:nowrap}
+
+/* 1) طبق دائري طالع من الركن */
+.disc{position:absolute;z-index:2;width:var(--d);height:var(--d);border-radius:50%;overflow:hidden;
+  box-shadow:0 0 0 1.8mm var(--gold),0 0 0 3.2mm rgba(255,255,255,.9),0 3mm 7mm 3.2mm rgba(40,6,14,.35)}
+.disc img{width:100%;height:100%;object-fit:cover;object-position:var(--op,50% 50%);transform:scale(var(--sc,1))}
+.disc .lbl{bottom:7mm;left:50%;transform:translateX(-50%)}
+.stack{position:absolute;z-index:4;top:var(--st,9mm);right:6mm;text-align:right;font-family:'Lalezar',serif;font-weight:400;line-height:.95}
+.stack b{display:block;font-weight:400;font-size:13pt;color:var(--gold)}
+.stack span{display:block;font-size:30pt;color:var(--maroon);text-shadow:.6mm .6mm 0 rgba(242,174,0,.55)}
+.k-wine .stack span,.k-char .stack span{color:#fff;text-shadow:.6mm .6mm 0 rgba(0,0,0,.35)}
+.stack i{display:block;width:22mm;height:.7mm;margin:2mm 0 0 auto;background:linear-gradient(90deg,transparent,var(--gold))}
+.stack small{display:block;font-family:'Cairo';font-size:6.8pt;font-weight:700;color:var(--muted);margin-top:1.5mm;line-height:1.35;max-width:38mm}
+
+/* 2) قصة مايلة بخط ذهبي */
+.diag .ph{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,100% 72%,0 100%);overflow:hidden}
+.diag .ph img{width:100%;height:100%;object-fit:cover}
+.diag::before{content:"";position:absolute;inset:0 0 -1.4mm 0;z-index:1;background:var(--gold);clip-path:polygon(0 96%,100% 69%,100% 72%,0 100%)}
+.diag.rev .ph{clip-path:polygon(0 0,100% 0,100% 100%,0 72%)}
+.diag.rev::before{clip-path:polygon(0 69%,100% 96%,100% 100%,0 72%)}
+.diag .lbl{top:3mm;left:3mm}
+
+/* 3) بولارويد مايلة بشريط لاصق */
+.pola{position:absolute;z-index:2;top:6mm;left:7mm;width:66mm;background:#fff;padding:2mm 2mm 6.5mm;transform:rotate(-4deg);box-shadow:0 2.5mm 6mm rgba(60,30,10,.35)}
+.pola img{width:100%;height:34mm;object-fit:cover;display:block}
+.pola::before{content:"";position:absolute;top:-3mm;left:50%;width:22mm;height:6mm;transform:translateX(-50%) rotate(3deg);background:rgba(242,174,0,.55);box-shadow:0 .3mm .8mm rgba(0,0,0,.15)}
+.pola .cap-t{position:absolute;bottom:.6mm;right:3mm;font-family:'Lalezar',serif;font-size:9pt;color:var(--maroon)}
+.pola .lbl{top:4mm;left:4mm}
+.pola2{position:absolute;z-index:1;top:8mm;right:8mm;width:30mm;background:#fff;padding:1.4mm 1.4mm 4mm;transform:rotate(7deg);box-shadow:0 2mm 5mm rgba(60,30,10,.3)}
+.pola2 img{width:100%;height:22mm;object-fit:cover;display:block}
+
+/* 4) صورة بقوس في آخر الجزء */
+.arch{position:relative;margin:auto -6mm -5mm;height:var(--h);flex:none}
+.arch .ph{position:absolute;inset:0;clip-path:ellipse(80% 100% at 50% 100%);overflow:hidden}
+.arch .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.arch::before{content:"";position:absolute;inset:-2.2mm 0 0 0;background:var(--gold);clip-path:ellipse(80% 100% at 50% 100%)}
+.arch .lbl{bottom:4mm;left:4mm}
+
+/* 5) ختم دائري جنب العنوان */
+.row-t{display:flex;align-items:center;justify-content:space-between;gap:3mm;flex:none}
+.stamp{position:relative;width:var(--d);height:var(--d);border-radius:50%;flex:none;padding:1.4mm;border:.5mm dashed var(--gold)}
+.stamp img{width:100%;height:100%;border-radius:50%;object-fit:cover;box-shadow:0 1.5mm 4mm rgba(60,10,20,.3)}
+.stamp .lbl{bottom:-1mm;left:50%;transform:translateX(-50%)}
+.brush.lg{font-size:19pt;padding:1.6mm 8mm 2.6mm 9mm}
+
+@media screen{.over{outline:2mm solid red;outline-offset:-2mm}}
 </style>
 </head>
 <body>
@@ -211,42 +289,69 @@ body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-pri
     </div>`);
 
   const chilosPizza = cat("pizza-it").groups[4].items[0];
-  const pItalian = panel("", `${banner("pizza-it", 60)}<div class="pn__body">
-      ${brush("البيتزا الإيطالي")}
-      ${body("pizza-it", { desc: true, groups: [0, 1, 3], strip: STRIP })}
+  const L = AI ? '<span class="lbl">صورة توضيحية</span>' : "";
+  const disc = (img, d, pos, op, sc) => `<div class="disc" style="--d:${d}mm;${pos};--op:${op || "50% 50%"};--sc:${sc || 1}"><img src="${HQ(img)}" alt="">${L}</div>`;
+
+  // 1) البيتزا الإيطالي — كريمي + طبق بيتزا دائري طالع من الركن الشمال فوق
+  const pItalian = panel("k-cream", `<div class="hdr" style="--h:62mm">
+      ${disc("pizza-it", 84, "top:-20mm;left:-22mm", "50% 52%", 1.25)}
+      <div class="stack" style="--st:10mm"><b>تشيلوس</b><span>البيتزا</span><span>الإيطالي</span><i></i><small>${esc(cat("pizza-it").note)}</small></div>
+    </div><div class="pn__body">
+      ${body("pizza-it", { desc: true, note: false, groups: [0, 1, 3], strip: STRIP })}
       ${star(chilosPizza, HQ("chilos-pizza"), "الأشهر")}
     </div>`);
-  const pItalian2 = panel("", `${banner("chilos-pizza", 36)}<div class="pn__body">
-      ${brush("الإيطالي — لحوم")}
+
+  // 2) لحوم + شرقي — نبيتي + قصة مايلة بخط ذهبي
+  const pItalian2 = panel("k-wine", `<div class="hdr diag" style="--h:40mm">
+      <div class="ph"><img src="${HQ("chilos-pizza")}" alt=""></div>${L}
+      <div class="ttl">${brush("الإيطالي — لحوم")}</div>
+    </div><div class="pn__body" style="padding-top:2mm">
       ${body("pizza-it", { desc: true, note: false, groups: [2], strip: STRIP, drop: PIZZA, grp: false })}
       ${brush("البيتزا الشرقي", true)}
       ${body("pizza-or", { two: true, drop: PIZZA })}
     </div>`);
-  const pOriental = panel("", `${banner("hadiq", 78)}<div class="pn__body">
-      ${brush("الفطير الحادق")}
+
+  // 3) الفطير الحادق — زبدي + الصورة تحت بقوس ذهبي
+  const pOriental = panel("k-butter", `<div class="pn__body" style="padding-top:8mm">
+      ${brush("الفطير الحادق", true)}
       ${body("hadiq", { groups: [0] })}
+      <div class="arch" style="--h:68mm"><div class="ph"><img src="${HQ("hadiq")}" alt=""></div>${L}</div>
     </div>`);
 
   /* ---------------- الضهر ---------------- */
-  const pChicken = panel("", `${banner("crepe-chicken", 52)}<div class="pn__body">
-      ${brush("كريب الدجاج")}
+  // 4) كريب الدجاج — ورق كرافت + صور بولارويد مايلة
+  const pChicken = panel("k-kraft", `<div class="hdr" style="--h:54mm">
+      <div class="pola2"><img src="${HQ("crepe-special")}" alt=""></div>
+      <div class="pola"><img src="${HQ("crepe-chicken")}" alt="">${L}</div>
+      <div class="ttl">${brush("كريب الدجاج")}</div>
+    </div><div class="pn__body" style="padding-top:2.5mm">
       ${body("crepe-chicken", { desc: true })}
       ${brush("أصناف أخرى", true)}
       ${body("other")}
     </div>`);
-  const pSpecial = panel("", `${banner("crepe-special", 40)}<div class="pn__body">
-      ${brush("كريب اسبيشيال")}
+
+  // 5) اسبيشيال + لحوم — فحمي + قصة مايلة عكسية + ختم دائري
+  const pSpecial = panel("k-char", `<div class="hdr diag rev" style="--h:36mm">
+      <div class="ph"><img src="${HQ("crepe-special")}" alt=""></div>${L}
+      <div class="ttl">${brush("كريب اسبيشيال")}</div>
+    </div><div class="pn__body" style="padding-top:2mm">
       ${body("crepe-special", { desc: true })}
-      ${brush("كريب اللحوم", true)}
+      <div class="row-t">${brush("كريب اللحوم", true)}<div class="stamp" style="--d:19mm"><img src="${HQ("crepe-meat")}" alt=""></div></div>
       ${body("crepe-meat", { desc: true })}
     </div>`);
-  const pSweet = panel("", `${banner("sweet-fatayer", 20)}<div class="pn__body">
-      ${brush("الفطير الحلو")}
+
+  // 6) الفطير الحلو — وردي فاتح + ختم دائري كبير جنب العنوان
+  const pSweet = panel("k-blush", `<div class="pn__body" style="padding-top:2.5mm">
+      <div class="row-t">${brush("الفطير الحلو", true).replace('class="brush', 'class="brush lg')}<div class="stamp" style="--d:20mm"><img src="${HQ("sweet-fatayer")}" alt="">${L}</div></div>
       ${body("sweet-fatayer", { desc: true, groups: [0] })}
     </div>`);
+
+  // 7) كريب حلو + المميز + الإضافات — نبيتي غامق + طبق دائري طالع من الركن اليمين
   const ext = cat("extras");
-  const pDark = panel("dark", `${banner("crepe-sweet", 34, "dark")}<div class="pn__body">
-      ${brush("كريب حلو")}
+  const pDark = panel("k-wine", `<div class="hdr" style="--h:40mm">
+      ${disc("crepe-sweet", 58, "top:-16mm;right:-14mm", "60% 50%", 1.15)}
+      <div class="stack" style="--st:9mm;right:auto;left:6mm;text-align:left"><b>تشيلوس</b><span>كريب</span><span>حلو</span></div>
+    </div><div class="pn__body" style="padding-top:1mm">
       ${body("crepe-sweet", { desc: true })}
       ${star(cat("sweet-fatayer").groups[1].items[0], HQ("sweet-fatayer"), "الأشهر")}
       ${body("hadiq", { groups: [1], grp: false, starImg: HQ("hadiq") })}
@@ -265,8 +370,12 @@ body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-pri
   // مراجعة قبل الطباعة: العنوان = زيادة (+) أو مساحة فاضية (-) بالبكسل لكل جزء، والجزء الزايد بيتعلّم بالأحمر
   const check = () => {
     const out = [...document.querySelectorAll(".pn__body")].map(b => {
-      const last = [...b.children].filter(e => !e.classList.contains("fin")).pop();
-      const v = Math.round(last.getBoundingClientRect().bottom - b.getBoundingClientRect().bottom + 19);
+      // القوس (arch) واصل لحافة الورقة عن قصد، فبنقيس المحتوى اللي قبله لحد بداية القوس
+      const kids = [...b.children].filter(e => !e.classList.contains("fin"));
+      const arch = kids[kids.length - 1].classList.contains("arch") ? kids.pop() : null;
+      const last = kids.pop();
+      const limit = arch ? arch.getBoundingClientRect().top - 8 : b.getBoundingClientRect().bottom - 19;
+      const v = Math.round(last.getBoundingClientRect().bottom - limit);
       b.parentElement.classList.toggle("over", v > 0); return v;
     });
     const widths = [...document.querySelectorAll(".pn")].map(p => Math.round(p.getBoundingClientRect().width));
