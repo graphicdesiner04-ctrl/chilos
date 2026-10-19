@@ -163,6 +163,11 @@
     clearTimeout(tt); tt = setTimeout(() => el.classList.remove("on"), 1400);
   }
 
+  /* ---------- photos ---------- */
+  const AI = typeof PHOTOS_ILLUSTRATIVE !== "undefined" && PHOTOS_ILLUSTRATIVE;
+  const photo = (src, alt, cls, eager) =>
+    `<span class="ph ${cls}${AI ? " ph--ai" : ""}"><img src="assets/${esc(src)}" alt="${esc(alt)}" width="800" height="600" ${eager ? "" : 'loading="lazy" '}decoding="async"></span>`;
+
   /* ---------- menu rendering ---------- */
   const priceBtns = it => it.p.map((p, i) => {
     if (p == null) return "";
@@ -172,7 +177,7 @@
 
   const itemHtml = it => `
     <article class="item">
-      ${it.img ? `<img class="item__img" src="assets/${esc(it.img)}" alt="${esc(it.n)}" width="800" height="600" loading="lazy" decoding="async">` : ""}
+      ${it.img ? photo(it.img, it.n, "item__img") : ""}
       <h4>${esc(it.n)}${it.new ? '<span class="tag">جديد</span>' : ""}${it.star ? '<span class="tag tag--star">الأشهر</span>' : ""}</h4>
       ${it.d ? `<p>${esc(it.d)}</p>` : ""}
       <div class="prices">${priceBtns(it)}</div>
@@ -183,7 +188,8 @@
       return `<div class="cnote">المشروبات متاحة في الفرع — اكتب اللي عايزه في خانة الملاحظات وإحنا نضيفه على أوردرك.</div>
         <div class="drinks">${cat.groups[0].items.map(i => `<div class="drink"><h4>${esc(i.n)}</h4><p>${esc(i.d)}</p></div>`).join("")}</div>`;
     }
-    return (cat.note ? `<div class="cnote">${esc(cat.note)}</div>` : "") +
+    return (cat.img ? photo(cat.img, cat.t, "banner") : "") +
+      (cat.note ? `<div class="cnote">${esc(cat.note)}</div>` : "") +
       cat.groups.map(g => `${g.t ? `<h3 class="gtitle">${esc(g.t)}</h3>` : ""}<div class="grid">${g.items.map(itemHtml).join("")}</div>`).join("");
   }
 
@@ -223,12 +229,19 @@
   /* ---------- signature section ---------- */
   const sig = Object.values(byId).filter(i => i.star);
   $("#sigGrid").innerHTML = sig.map(it => `
-    <article class="sigcard"><h3>${esc(it.n)}</h3>${it.d ? `<p>${esc(it.d)}</p>` : "<p></p>"}<div class="prices">${priceBtns(it)}</div></article>`).join("");
+    <article class="sigcard">${(() => { const src = it.img || (MENU.find(c => c.id === it.cat) || {}).img; return src ? photo(src, it.n, "sig__img") : ""; })()}<h3>${esc(it.n)}</h3>${it.d ? `<p>${esc(it.d)}</p>` : "<p></p>"}<div class="prices">${priceBtns(it)}</div></article>`).join("");
 
   if (typeof GALLERY !== "undefined" && GALLERY.length) {
-    $("#galleryGrid").innerHTML = GALLERY.map(g => `<img src="assets/${esc(g.src)}" alt="${esc(g.alt || "")}" width="800" height="600" loading="lazy" decoding="async">`).join("");
+    $("#galleryGrid").innerHTML = GALLERY.map(g => `<figure>${photo(g.src, g.alt || "", "")}<figcaption>${esc(g.alt || "")}</figcaption></figure>`).join("");
+    $("#galleryNote").hidden = !AI;
     $("#gallery").hidden = false;
   }
+
+  // صور كروت الأقسام في أول الصفحة
+  document.querySelectorAll(".cat[data-go]").forEach(b => {
+    const c = MENU.find(m => m.id === b.dataset.go);
+    if (c && c.img) { b.insertAdjacentHTML("afterbegin", photo(c.img, "", "cat__img")); b.classList.add("cat--photo"); }
+  });
 
   renderMenu(); renderCart();
 })();

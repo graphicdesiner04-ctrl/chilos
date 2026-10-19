@@ -20,8 +20,19 @@ const CONFIG = {
    - GALLERY: صور تظهر في قسم "من مطبخنا" (القسم بيظهر تلقائيًا لما القائمة مش فاضية).
    - لصورة صنف معيّن: أضف img: "photos/اسم.webp" داخل الصنف في المنيو بالأسفل.
    ============================================================ */
+// true = الصور الحالية مولّدة بالذكاء الاصطناعي وبيظهر عليها "صورة توضيحية".
+// لما تحط صور المطعم الحقيقية مكانها (بنفس الأسماء) خليها false.
+const PHOTOS_ILLUSTRATIVE = true;
+
 const GALLERY = [
-  // { src: "photos/pizza-1.webp", alt: "بيتزا تشيلوس" },
+  { src: "photos/chilos-pizza.webp", alt: "بيتزا تشيلوس" },
+  { src: "photos/pizza-it.webp", alt: "بيتزا إيطالي" },
+  { src: "photos/hadiq.webp", alt: "فطير حادق" },
+  { src: "photos/sweet-fatayer.webp", alt: "فطير حلو بالنوتيلا" },
+  { src: "photos/crepe-chicken.webp", alt: "كريب دجاج" },
+  { src: "photos/crepe-meat.webp", alt: "كريب لحوم" },
+  { src: "photos/crepe-sweet.webp", alt: "كريب حلو" },
+  { src: "photos/pizza-or.webp", alt: "بيتزا شرقي" }
 ];
 
 /* ============================================================
@@ -31,7 +42,7 @@ const GALLERY = [
    ============================================================ */
 const MENU = [
   {
-    id: "pizza-it", t: "بيتزا إيطالي", emoji: "🍕",
+    id: "pizza-it", t: "بيتزا إيطالي", emoji: "🍕", img: "photos/pizza-it.webp",
     note: "كل البيتزا الإيطالي بصوص بيتزا وموتزاريلا وزيتون",
     s: ["كالزوني", "وسط", "كبير"],
     groups: [
@@ -73,12 +84,12 @@ const MENU = [
         { n: "بيتزا سيفو رانش", p: [null, 205, 255] }
       ]},
       { t: "بيتزا تشيلوس — الأشهر", items: [
-        { n: "بيتزا تشيلوس", d: "ستافد كراست (هوت دوج وموتزاريلا) + قطع استربس وشاورما فراخ وصوص شيدر وباربكيو وصوص بيتزا وموتزاريلا وزيتون", s: ["حجم واحد"], p: [225], star: true }
+        { n: "بيتزا تشيلوس", img: "photos/chilos-pizza.webp", d: "ستافد كراست (هوت دوج وموتزاريلا) + قطع استربس وشاورما فراخ وصوص شيدر وباربكيو وصوص بيتزا وموتزاريلا وزيتون", s: ["حجم واحد"], p: [225], star: true }
       ]}
     ]
   },
   {
-    id: "pizza-or", t: "بيتزا شرقي", emoji: "🍕",
+    id: "pizza-or", t: "بيتزا شرقي", emoji: "🍕", img: "photos/pizza-or.webp",
     s: ["وسط", "كبير"],
     items: [
       { n: "بيتزا ميكس جبن", p: [160, 195] },
@@ -114,7 +125,7 @@ const MENU = [
     ]
   },
   {
-    id: "hadiq", t: "فطير حادق", emoji: "🥧",
+    id: "hadiq", t: "فطير حادق", emoji: "🥧", img: "photos/hadiq.webp",
     s: ["صاروخ", "وسط", "كبير"],
     groups: [
       { items: [
@@ -156,7 +167,7 @@ const MENU = [
     ]
   },
   {
-    id: "sweet-fatayer", t: "فطير حلو", emoji: "🍯",
+    id: "sweet-fatayer", t: "فطير حلو", emoji: "🍯", img: "photos/sweet-fatayer.webp",
     s: ["وسط", "كبير"],
     groups: [
       { items: [
@@ -194,7 +205,7 @@ const MENU = [
     ]
   },
   {
-    id: "crepe-chicken", t: "كريب الدجاج", emoji: "🌯",
+    id: "crepe-chicken", t: "كريب الدجاج", emoji: "🌯", img: "photos/crepe-chicken.webp",
     s: ["صغير", "كبير", "رول"],
     items: [
       { n: "كريب بانيه", d: "دجاج بانيه + موتزاريلا + خس + كاتشب + مايونيز", p: [60, 80, 125] },
@@ -233,7 +244,7 @@ const MENU = [
     ]
   },
   {
-    id: "crepe-meat", t: "كريب اللحوم", emoji: "🥩",
+    id: "crepe-meat", t: "كريب اللحوم", emoji: "🥩", img: "photos/crepe-meat.webp",
     s: ["صغير", "كبير", "رول"],
     items: [
       { n: "سوسيس مكسيكان", d: "شرائح سوسيس + فلفل + طماطم + صوص باربكيو + موتزاريلا + كاتشب + مايونيز", p: [65, 95, 145] },
@@ -247,7 +258,7 @@ const MENU = [
     ]
   },
   {
-    id: "crepe-sweet", t: "كريب حلو", emoji: "🍫",
+    id: "crepe-sweet", t: "كريب حلو", emoji: "🍫", img: "photos/crepe-sweet.webp",
     s: ["صغير", "كبير"],
     items: [
       { n: "نوتيلا", p: [45, 60] },
