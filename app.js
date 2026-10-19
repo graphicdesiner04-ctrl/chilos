@@ -27,6 +27,7 @@
   MENU.forEach(cat => {
     if (!cat.groups) cat.groups = [{ items: cat.items }];
     cat.groups.forEach((g, gi) => g.items.forEach((it, ii) => {
+      it.p = it.p || [];   // أصناف المعلومات (المشروبات) من غير أسعار
       it.id = `${cat.id}.${gi}.${ii}`;
       it.sizes = it.s || g.s || cat.s || [];
       it.cat = cat.id;
@@ -85,15 +86,19 @@
 
   /* ---------- drawer ---------- */
   const drawer = $("#drawer"), overlay = $("#overlay");
+  let lastFocus = null;
   function openCart() {
+    lastFocus = document.activeElement; drawer.inert = false;
     overlay.hidden = false; requestAnimationFrame(() => overlay.classList.add("on"));
     drawer.classList.add("on"); drawer.setAttribute("aria-hidden", "false");
     $("#cartBar").hidden = true; document.body.style.overflow = "hidden";
+    $("#closeCart").focus();
   }
   function closeCart() {
     overlay.classList.remove("on"); setTimeout(() => (overlay.hidden = true), 250);
     drawer.classList.remove("on"); drawer.setAttribute("aria-hidden", "true");
-    document.body.style.overflow = ""; renderCart();
+    drawer.inert = true; document.body.style.overflow = ""; renderCart();
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
   }
   $("#openCart").onclick = openCart; $("#cartBar").onclick = openCart;
   $("#closeCart").onclick = closeCart; overlay.onclick = closeCart;
@@ -167,6 +172,7 @@
 
   const itemHtml = it => `
     <article class="item">
+      ${it.img ? `<img class="item__img" src="assets/${esc(it.img)}" alt="${esc(it.n)}" width="800" height="600" loading="lazy" decoding="async">` : ""}
       <h4>${esc(it.n)}${it.new ? '<span class="tag">جديد</span>' : ""}${it.star ? '<span class="tag tag--star">الأشهر</span>' : ""}</h4>
       ${it.d ? `<p>${esc(it.d)}</p>` : ""}
       <div class="prices">${priceBtns(it)}</div>
@@ -183,7 +189,7 @@
 
   let active = MENU[0].id;
   const chips = $("#chips"), out = $("#menuOut"), q = $("#q");
-  chips.innerHTML = MENU.map(c => `<button class="chip" role="tab" data-c="${c.id}" aria-selected="${c.id === active}">${c.emoji} ${esc(c.t)}</button>`).join("");
+  chips.innerHTML = MENU.map(c => `<button class="chip" type="button" data-c="${c.id}" aria-pressed="${c.id === active}">${c.emoji} ${esc(c.t)}</button>`).join("");
 
   function renderMenu() {
     const term = q.value.trim();
@@ -192,10 +198,10 @@
       const norm = s => s.replace(/[أإآ]/g, "ا").replace(/ة/g, "ه").replace(/ى/g, "ي");
       const hits = Object.values(byId).filter(it => it.p.some(x => x != null) && norm(it.n + " " + (it.d || "")).includes(t));
       out.innerHTML = hits.length ? `<div class="grid">${hits.map(itemHtml).join("")}</div>` : `<div class="nores">مفيش نتايج لـ "${esc(term)}" 🤔</div>`;
-      chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-selected", "false"));
+      chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", "false"));
       return;
     }
-    chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-selected", String(c.dataset.c === active)));
+    chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.c === active)));
     out.innerHTML = catHtml(MENU.find(c => c.id === active));
   }
   function setCat(id, scroll) {
@@ -218,6 +224,11 @@
   const sig = Object.values(byId).filter(i => i.star);
   $("#sigGrid").innerHTML = sig.map(it => `
     <article class="sigcard"><h3>${esc(it.n)}</h3>${it.d ? `<p>${esc(it.d)}</p>` : "<p></p>"}<div class="prices">${priceBtns(it)}</div></article>`).join("");
+
+  if (typeof GALLERY !== "undefined" && GALLERY.length) {
+    $("#galleryGrid").innerHTML = GALLERY.map(g => `<img src="assets/${esc(g.src)}" alt="${esc(g.alt || "")}" width="800" height="600" loading="lazy" decoding="async">`).join("");
+    $("#gallery").hidden = false;
+  }
 
   renderMenu(); renderCart();
 })();
