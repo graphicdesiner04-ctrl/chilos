@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex">
+<title>كارت QR — منيو تشيلوس</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;800&family=Lalezar&display=block" rel="stylesheet">
+<style>
+/* A6 طولي — كارت للترابيزة أو الكاشير */
+@page{size:105mm 148mm;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Cairo',sans-serif;-webkit-print-color-adjust:exact;print-color-adjust:exact;background:#888}
+.card{width:105mm;height:148mm;margin:10mm auto;background:linear-gradient(170deg,#7a1626,#4e0c18);color:#fff;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:9mm 8mm 8mm;text-align:center;overflow:hidden}
+@media print{body{background:none}.card{margin:0}}
+.logo{width:30mm;height:30mm;border-radius:50%;border:1.5mm solid #f2ae00;object-fit:cover}
+h1{font-family:'Lalezar',serif;font-weight:400;font-size:30pt;line-height:1}
+.tag{font-family:'Lalezar',serif;color:#f2ae00;font-size:12pt}
+.qr{background:#fff;border-radius:5mm;padding:4mm}
+.qr img{width:52mm;height:52mm;display:block}
+.cta{font-family:'Lalezar',serif;font-weight:400;font-size:17pt;line-height:1.2}
+.cta small{display:block;font-family:'Cairo';font-size:8.5pt;opacity:.9;font-weight:600}
+.ph{font-size:11pt;font-weight:800;direction:ltr}
+</style>
+</head>
+<body>
+<div class="card">
+  <img class="logo" src="assets/logo.jpg" alt="">
+  <div><h1>تشيلوس</h1><div class="tag">بيتزا · فطير · كريب</div></div>
+  <div class="qr"><img src="assets/qr-menu.svg" alt="QR المنيو"></div>
+  <div class="cta">امسح وشوف المنيو<small>المنيو كامل بالأسعار على موبايلك — واطلب على واتساب</small></div>
+  <div class="ph">📱 01010133931 · ☎ 0223491110</div>
+</div>
+</body>
+</html>

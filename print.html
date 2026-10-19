@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>منيو تشيلوس للطباعة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;700;800&family=Lalezar&display=block" rel="stylesheet">
+<style>
+/* A3 بالعرض — وشّين. للمطبعة: اطلب Bleed 3mm (الخلفية واصلة للحافة) */
+@page { size: 420mm 297mm; margin: 0; }
+:root{
+  --maroon:#7a1626; --maroon-d:#4e0c18; --ink:#231f20; --cream:#fff5ec; --cream-2:#f8e3d2;
+  --gold:#f2ae00; --muted:#6b5a60; --line:#e3c9b6;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#888}
+body{font-family:'Cairo',sans-serif;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet{width:420mm;height:297mm;margin:10mm auto;background:var(--cream);position:relative;overflow:hidden;display:grid;grid-template-columns:repeat(4,1fr);page-break-after:always;break-after:page}
+#front{grid-template-columns:.66fr repeat(3,1.113fr)}
+.sheet:last-child{page-break-after:auto;break-after:auto}
+@media print{html,body{background:none}.sheet{margin:0}}
+.sheet::before{content:"";position:absolute;inset:0;background:
+  radial-gradient(circle at 100% 0,rgba(122,22,38,.10),transparent 30%),
+  radial-gradient(circle at 0 100%,rgba(242,174,0,.10),transparent 30%);pointer-events:none}
+.col{position:relative;padding:6mm 6mm 5mm;border-inline-start:.3mm dashed var(--line);overflow:hidden;display:flex;flex-direction:column;gap:2mm}
+.col:first-child{border-inline-start:0}
+.col.over{outline:2mm solid red}
+
+/* عناوين الأقسام بشكل فرشاة زي المنيو القديم */
+.sec{display:flex;flex-direction:column;gap:.9mm}
+.sec__t{align-self:flex-start;font-family:'Lalezar',serif;font-weight:400;font-size:14pt;line-height:1.25;color:#fff;background:var(--maroon);padding:.5mm 6mm 1mm;border-radius:3mm 1mm 3mm 1mm;transform:rotate(-1.2deg);margin-bottom:.6mm;box-shadow:1mm 1mm 0 var(--gold)}
+.grp{font-weight:800;font-size:9pt;color:#fff;background:var(--ink);align-self:flex-start;padding:0 4mm;border-radius:99px;margin-top:1.2mm}
+.note{font-size:7pt;color:var(--muted)}
+
+/* صف الأسعار: الاسم | أعمدة المقاسات */
+.hd,.row{display:grid;grid-template-columns:1fr repeat(var(--n),10.5mm);align-items:baseline;column-gap:.8mm}
+.hd{font-size:7.2pt;font-weight:800;color:var(--maroon);border-bottom:.4mm solid var(--maroon);padding-bottom:.4mm}
+.hd span{text-align:center}
+.row{padding:.08mm 0;border-bottom:.25mm dotted #d8bfae}
+.row b{font-size:8pt;font-weight:800;line-height:1.2}
+.row small{grid-column:1/-1;font-size:6pt;color:var(--muted);line-height:1.2;font-weight:500}
+.row i{font-style:normal;font-weight:800;font-size:8.6pt;text-align:center;color:var(--maroon-d)}
+.row i:nth-of-type(even){color:var(--ink)}
+.row .new{display:inline-block;font-size:5.6pt;background:#c8283b;color:#fff;border-radius:1mm;padding:0 1.2mm;margin-inline-start:1mm;vertical-align:middle;line-height:1.6}
+
+/* بوكس الأطباق المميزة */
+.star{background:var(--maroon);color:#fff;border-radius:3mm;padding:2.5mm 3.5mm;display:flex;align-items:center;gap:3mm}
+.star div{flex:1}
+.star h4{font-family:'Lalezar',serif;font-weight:400;font-size:14pt;line-height:1.2;color:var(--gold)}
+.star p{font-size:6.6pt;opacity:.92;line-height:1.35}
+.star strong{font-family:'Lalezar',serif;font-weight:400;font-size:22pt;line-height:1;white-space:nowrap}
+.star strong small{font-family:'Cairo';font-size:7pt;display:block;text-align:center}
+
+/* عمود الغلاف */
+.cover{background:linear-gradient(170deg,var(--maroon) 0%,var(--maroon-d) 100%);color:#fff;align-items:center;text-align:center;justify-content:space-between}
+.cover .logo{width:50mm;height:50mm;border-radius:50%;border:2mm solid var(--gold);object-fit:cover;box-shadow:0 3mm 8mm rgba(0,0,0,.35)}
+.cover h1{font-family:'Lalezar',serif;font-weight:400;font-size:38pt;line-height:1}
+.cover .tag{font-family:'Lalezar',serif;font-size:15pt;color:var(--gold);letter-spacing:.5mm}
+.cover .phones{display:flex;flex-direction:column;gap:1mm;font-size:14pt;font-weight:800;direction:ltr}
+.cover .addr{font-size:8.4pt;opacity:.95;line-height:1.5}
+.qr{background:#fff;border-radius:4mm;padding:3mm;display:flex;align-items:center;gap:3mm;color:var(--ink);text-align:start}
+.qr img{width:28mm;height:28mm;flex:none}
+.qr b{display:block;font-family:'Lalezar',serif;font-weight:400;font-size:12pt;color:var(--maroon);line-height:1.2}
+.qr span{font-size:7.2pt;line-height:1.4;display:block}
+.photos{display:grid;grid-template-columns:repeat(3,1fr);gap:2mm;width:100%}
+.photos img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:2.5mm;border:.6mm solid rgba(255,255,255,.6)}
+.photos-note{font-size:6pt;opacity:.75;margin-top:-2mm}
+.wa{display:inline-flex;align-items:center;gap:2mm;background:#1faa59;color:#fff;font-weight:800;font-size:9.5pt;padding:1.5mm 5mm;border-radius:99px}
+
+.drinks{background:var(--ink);color:#fff;border-radius:3mm;padding:2.5mm 3.5mm}
+.drinks h4{font-family:'Lalezar',serif;font-weight:400;font-size:13pt;color:var(--gold);line-height:1.3}
+.drinks li{list-style:none;font-size:7.6pt;line-height:1.5}
+.drinks li b{color:var(--gold)}
+.ex{display:grid;grid-template-columns:1fr 1fr;column-gap:4mm}
+.ex .row{grid-template-columns:1fr 7mm}
+.ex .row b{font-size:7.8pt}
+.cstar{width:100%;text-align:start}
+.cstar .star{background:#fff;color:var(--ink)}
+.cstar .star h4{color:var(--maroon)}
+.cstar .star strong{color:var(--maroon)}
+.phones small{font-size:7pt;opacity:.8}
+.two{display:grid;grid-template-columns:1fr 1fr;column-gap:4mm}
+.two .hd,.two .row{grid-template-columns:1fr repeat(var(--n),9mm);column-gap:.5mm}
+.foot{margin-top:auto;font-size:6.6pt;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<div id="out"></div>
+<script src="menu.js"></script>
+<script>
+(() => {
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const cat = id => MENU.find(c => c.id === id);
+  const groupsOf = c => c.groups || [{ items: c.items }];
+  // الجزء المتكرر في وصف البيتزا الإيطالي — مكتوب مرة واحدة في ملاحظة القسم
+  const PIZZA = /^بيتزا\s+/;
+  const STRIP = /\s*\+\s*صوص بيتزا\s*\+\s*(موتزاريلا\s*\+\s*زيتون|زيتون\s*\+\s*موتزاريلا)\s*$/;
+
+  // صفوف قسم بمقاسات ثابتة
+  function table(sizes, items, opts = {}) {
+    const n = sizes.length;
+    const rows = items.map(it => {
+      const prices = sizes.map((_, i) => `<i>${it.p[i] == null ? "–" : it.p[i]}</i>`).join("");
+      let d = opts.desc && it.d ? it.d : "";
+      if (opts.strip) d = d.replace(opts.strip, "").trim();
+      d = d ? `<small>${esc(d)}</small>` : "";
+      const name = opts.drop ? it.n.replace(opts.drop, "") : it.n;
+      return `<div class="row" style="--n:${n}"><b>${esc(name)}${it.new ? '<span class="new">جديد</span>' : ""}</b>${prices}${d}</div>`;
+    }).join("");
+    const hd = `<div class="hd" style="--n:${n}"><span></span>${sizes.map(s => `<span>${esc(s)}</span>`).join("")}</div>`;
+    return hd + rows;
+  }
+  function star(it, price, unit) {
+    return `<div class="star"><div><h4>${esc(it.n)}</h4>${it.d ? `<p>${esc(it.d)}</p>` : ""}</div><strong>${price}<small>${esc(unit)}</small></strong></div>`;
+  }
+  // قسم: المجموعات العادية جدول، والأصناف ذات المقاسات الخاصة بوكس مميز
+  // opts.groups = أرقام المجموعات المعروضة (لتقسيم قسم طويل على عمودين)، title:false = بدون عنوان
+  function section(id, opts = {}) {
+    const c = cat(id);
+    let h = `<section class="sec">${opts.title === false ? "" : `<h2 class="sec__t">${esc(opts.title || c.t)}</h2>`}`;
+    if (c.note && opts.note !== false) h += `<p class="note">${esc(c.note)}</p>`;
+    groupsOf(c).forEach((g, gi) => {
+      if (opts.groups && !opts.groups.includes(gi)) return;
+      const sizes = g.s || c.s;
+      const normal = g.items.filter(it => !it.s);
+      const special = g.items.filter(it => it.s);
+      if (normal.length) {
+        if (g.t) h += `<span class="grp">${esc(g.t)}</span>`;
+        // two:true = الجدول يتقسم نصين جنب بعض (للأقسام الطويلة اللي من غير وصف)
+        if (opts.two) {
+          const half = Math.ceil(normal.length / 2);
+          h += `<div class="two"><div>${table(sizes, normal.slice(0, half), opts)}</div><div>${table(sizes, normal.slice(half), opts)}</div></div>`;
+        } else h += table(sizes, normal, opts);
+      }
+      special.forEach(it => {
+        if (it.p.length === 1) h += star(it, it.p[0], it.s[0] === "حجم واحد" ? "جنيه" : "جنيه · " + it.s[0]);
+        else h += table(it.s, [it], opts);
+      });
+    });
+    return h + "</section>";
+  }
+  function extrasCrepe() {
+    const g = cat("extras").groups[1];
+    return `<section class="sec"><h2 class="sec__t">إضافات الكريب</h2><div class="ex">${g.items.map(it => `<div class="row"><b>${esc(it.n)}</b><i>${it.p[0]}</i></div>`).join("")}</div></section>`;
+  }
+  function extrasPizza() {
+    const g = cat("extras").groups[0];
+    const sized = g.items.filter(it => !it.s), single = g.items.filter(it => it.s);
+    return `<section class="sec"><h2 class="sec__t">إضافات الفطير والبيتزا</h2>${table(g.s, sized)}<div class="ex">${single.map(it => `<div class="row"><b>${esc(it.n)}</b><i>${it.p[0]}</i></div>`).join("")}</div></section>`;
+  }
+  function drinks() {
+    const g = cat("drinks").groups[0];
+    return `<div class="drinks"><h4>🥤 يوجد مشروبات</h4><ul>${g.items.map(i => `<li><b>${esc(i.n)}:</b> ${esc(i.d)}</li>`).join("")}</ul></div>`;
+  }
+  const AI = typeof PHOTOS_ILLUSTRATIVE !== "undefined" && PHOTOS_ILLUSTRATIVE;
+  const chilosStar = section("pizza-it", { title: false, note: false, groups: [4] });
+  const cover = `
+    <div class="col cover">
+      <img class="logo" src="assets/logo.jpg" alt="">
+      <div><h1>تشيلوس</h1><div class="tag">بيتزا · فطير · كريب</div></div>
+      <div class="photos">${["chilos-pizza", "hadiq", "crepe-chicken"].map(p => `<img src="assets/photos/${p}.webp" alt="">`).join("")}</div>
+      ${AI ? '<div class="photos-note">الصور توضيحية</div>' : ""}
+      <div class="cstar">${chilosStar}</div>
+      <div class="qr"><img src="assets/qr-menu.svg" alt=""><div><b>المنيو الإلكتروني</b><span>امسح الكود وشوف المنيو كامل على موبايلك واطلب على واتساب</span></div></div>
+      <div class="phones"><span>📱 ${esc(CONFIG.phoneMobile)} <small>واتساب</small></span><span>☎ ${esc(CONFIG.phoneLandline)}</span></div>
+      <div class="addr">📍 ${esc(CONFIG.address)}</div>
+    </div>`;
+
+  document.getElementById("out").innerHTML = `
+  <div class="sheet" id="front">
+    ${cover}
+    <div class="col">${section("pizza-it", { desc: true, groups: [0, 1, 3], strip: STRIP })}</div>
+    <div class="col">${section("pizza-it", { title: "بيتزا إيطالي — لحوم", note: false, desc: true, groups: [2], strip: STRIP, drop: PIZZA })}${section("pizza-or", { title: "البيتزا الشرقي", two: true, drop: PIZZA })}</div>
+    <div class="col">${section("hadiq", { title: "الفطير الحادق", groups: [0] })}</div>
+  </div>
+  <div class="sheet" id="back">
+    <div class="col">${section("crepe-chicken", { desc: true })}${section("crepe-sweet", { desc: true })}</div>
+    <div class="col">${section("crepe-special", { desc: true })}${section("crepe-meat", { desc: true })}</div>
+    <div class="col">${section("sweet-fatayer", { title: "الفطير الحلو", desc: true, groups: [0] })}</div>
+    <div class="col"><section class="sec"><h2 class="sec__t">أطباق تشيلوس المميزة</h2></section>${section("sweet-fatayer", { title: false, groups: [1] })}${section("hadiq", { title: false, groups: [1] })}${section("other")}${extrasPizza()}${extrasCrepe()}${drinks()}<p class="foot">الأسعار بالجنيه المصري وقابلة للتغيير · ${esc(CONFIG.nameEn)}</p></div>
+  </div>`;
+
+  // مراجعة قبل الطباعة: العنوان بيقول كل عمود زايد (+) ولا فاضي (-) بالبكسل، والعمود الزايد بيتعلّم بالأحمر
+  const check = () => {
+    const cols = [...document.querySelectorAll(".col")];
+    const fill = cols.map(c => {
+      const last = [...c.children].filter(e => !e.classList.contains("foot")).pop();
+      return Math.round(last.getBoundingClientRect().bottom - c.getBoundingClientRect().top + 19 - c.clientHeight);
+    });
+    cols.forEach((c, i) => c.classList.toggle("over", fill[i] > 0));
+    document.title = (fill.some(v => v > 0) ? "OVERFLOW " : "OK ") + JSON.stringify(fill);
+  };
+  (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => setTimeout(check, 300));
+})();
+</script>
+</body>
+</html>

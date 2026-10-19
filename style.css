@@ -226,3 +226,19 @@ h1 span{font-family:'Cairo';font-weight:700;font-size:.42em;color:var(--cream-2)
 .gallery figure{margin:0;border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);background:var(--card)}
 .gallery .ph{aspect-ratio:4/3}
 .gallery figcaption{padding:8px 12px;font-weight:700;color:var(--maroon)}
+
+/* e-menu page (menu.html) */
+.btn--sm{padding:8px 16px;font-size:.92rem;width:auto;box-shadow:none}
+.btn--line{border:2px solid rgba(255,255,255,.5);color:#fff}
+.btn--line:hover{background:rgba(255,255,255,.12)}
+.emhead{background:linear-gradient(160deg,var(--maroon),var(--maroon-d));color:#fff;padding:18px 0 16px;margin-bottom:14px}
+.emhead__in{display:flex;align-items:center;gap:14px}
+.emhead__in img{border-radius:50%;border:3px solid var(--gold);flex:none}
+.emhead h1{font-family:'Lalezar',serif;font-weight:400;font-size:1.9rem;line-height:1.2;margin:0}
+.emhead p{opacity:.9;font-size:.92rem}
+.emhead__cta{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+.emenu .menu{gap:8px}
+.msec{scroll-margin-top:124px;padding-bottom:18px}
+.msec__t{font-family:'Lalezar',serif;font-weight:400;font-size:1.7rem;color:var(--maroon);margin:10px 0 8px}
+.emfoot{color:var(--muted);font-size:.88rem;text-align:center;padding:10px 0 90px}
+.ulink{color:var(--maroon);font-weight:800;text-decoration:underline}

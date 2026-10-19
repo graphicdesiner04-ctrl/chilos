@@ -11,16 +11,17 @@
   /* ---------- contact links ---------- */
   const waBase = `https://wa.me/${CONFIG.waNumber}`;
   const waHello = `${waBase}?text=${encodeURIComponent("السلام عليكم، عايز أطلب من تشيلوس")}`;
-  $("#heroWa").href = waHello;
-  $("#fab").href = waHello;
-  $("#hdrWa").href = waHello;
-  $("#tAddr").textContent = CONFIG.address;
-  $("#tMobile").textContent = CONFIG.phoneMobile; $("#tMobile").href = `tel:${CONFIG.phoneMobile}`;
-  $("#tLand").textContent = CONFIG.phoneLandline; $("#tLand").href = `tel:${CONFIG.phoneLandline}`;
-  $("#callBtn").href = `tel:${CONFIG.phoneMobile}`;
-  $("#mapBtn").href = CONFIG.mapsUrl;
-  $("#fbBtn").href = CONFIG.facebookUrl;
-  $("#yr").textContent = new Date().getFullYear();
+  // الصفحة الرئيسية وصفحة المنيو بيشتركوا في الملف ده، فكل عنصر اختياري
+  const set = (sel, fn) => { const el = $(sel); if (el) fn(el); };
+  const EMENU = document.body.dataset.mode === "emenu";
+  ["#heroWa", "#fab", "#hdrWa", "#emWa"].forEach(s => set(s, el => (el.href = waHello)));
+  set("#tAddr", el => (el.textContent = CONFIG.address));
+  set("#tMobile", el => { el.textContent = CONFIG.phoneMobile; el.href = `tel:${CONFIG.phoneMobile}`; });
+  set("#tLand", el => { el.textContent = CONFIG.phoneLandline; el.href = `tel:${CONFIG.phoneLandline}`; });
+  ["#callBtn", "#emCall"].forEach(s => set(s, el => (el.href = `tel:${CONFIG.phoneMobile}`)));
+  set("#mapBtn", el => (el.href = CONFIG.mapsUrl));
+  set("#fbBtn", el => (el.href = CONFIG.facebookUrl));
+  set("#yr", el => (el.textContent = new Date().getFullYear()));
 
   /* ---------- normalize menu (assign ids) ---------- */
   const byId = {};
@@ -208,12 +209,42 @@
       return;
     }
     chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.c === active)));
-    out.innerHTML = catHtml(MENU.find(c => c.id === active));
+    out.innerHTML = EMENU
+      ? MENU.map(c => `<section class="msec" id="c-${c.id}" aria-labelledby="t-${c.id}"><h2 class="msec__t" id="t-${c.id}">${c.emoji} ${esc(c.t)}</h2>${catHtml(c)}</section>`).join("")
+      : catHtml(MENU.find(c => c.id === active));
+    if (EMENU) spy();
+  }
+  // يحرّك شريط الأقسام أفقيًا بس (scrollIntoView كان بيلغي سكرول الصفحة)
+  function centerChip(id, smooth) {
+    const chip = chips.querySelector(`[data-c="${id}"]`); if (!chip) return;
+    const c = chip.getBoundingClientRect(), w = chips.getBoundingClientRect();
+    chips.scrollBy({ left: (c.left + c.width / 2) - (w.left + w.width / 2), behavior: smooth ? "smooth" : "auto" });
+  }
+  // scroll-spy: يلوّن القسم الظاهر حاليًا في شريط الأقسام
+  let io, lockSpy = 0;
+  function spy() {
+    if (!("IntersectionObserver" in window)) return;
+    if (io) io.disconnect();
+    io = new IntersectionObserver(es => es.forEach(e => {
+      if (!e.isIntersecting || q.value.trim() || Date.now() < lockSpy) return;
+      active = e.target.id.slice(2);
+      chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.c === active)));
+      centerChip(active, false);
+    }), { rootMargin: "-130px 0px -60% 0px" });
+    out.querySelectorAll(".msec").forEach(sec => io.observe(sec));
   }
   function setCat(id, scroll) {
+    if (EMENU) {
+      if (q.value) { q.value = ""; renderMenu(); }
+      active = id; lockSpy = Date.now() + 500;
+      chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.c === id)));
+      centerChip(id, true);
+      const sec = document.getElementById("c-" + id);
+      if (sec) window.scrollTo({ top: sec.getBoundingClientRect().top + window.scrollY - 124, behavior: "instant" });  // smooth بيتقطع في القوايم الطويلة
+      return;
+    }
     active = id; q.value = ""; renderMenu();
-    const chip = chips.querySelector(`[data-c="${id}"]`);
-    if (chip) chip.scrollIntoView({ inline: "center", block: "nearest", behavior: "smooth" });
+    centerChip(id, true);
     if (scroll) $("#menu").scrollIntoView({ behavior: "smooth" });
   }
   chips.addEventListener("click", e => { const c = e.target.closest(".chip"); if (c) setCat(c.dataset.c, false); });
@@ -228,10 +259,10 @@
 
   /* ---------- signature section ---------- */
   const sig = Object.values(byId).filter(i => i.star);
-  $("#sigGrid").innerHTML = sig.map(it => `
+  if ($("#sigGrid")) $("#sigGrid").innerHTML = sig.map(it => `
     <article class="sigcard">${(() => { const src = it.img || (MENU.find(c => c.id === it.cat) || {}).img; return src ? photo(src, it.n, "sig__img") : ""; })()}<h3>${esc(it.n)}</h3>${it.d ? `<p>${esc(it.d)}</p>` : "<p></p>"}<div class="prices">${priceBtns(it)}</div></article>`).join("");
 
-  if (typeof GALLERY !== "undefined" && GALLERY.length) {
+  if (typeof GALLERY !== "undefined" && GALLERY.length && $("#gallery")) {
     $("#galleryGrid").innerHTML = GALLERY.map(g => `<figure>${photo(g.src, g.alt || "", "")}<figcaption>${esc(g.alt || "")}</figcaption></figure>`).join("");
     $("#galleryNote").hidden = !AI;
     $("#gallery").hidden = false;
