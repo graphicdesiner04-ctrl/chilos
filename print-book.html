@@ -1,0 +1,498 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>منيو تشيلوس — كتاب A4</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&family=Lalezar&display=block" rel="stylesheet">
+<style>
+/* ============================================================
+   منيو تشيلوس للطباعة — A3 بالعرض (420×297mm)، وشّين
+   كل وش 4 أجزاء متساوية بالظبط (105mm لكل جزء) — مناسب للطي على 4
+   للمطبعة: اطلب Bleed 3mm (الخلفيات والصور واصلة للحافة)
+   ============================================================ */
+
+:root{
+  --maroon:#7a1626; --maroon-d:#4a0b17; --wine:#5e1120; --ink:#221c1d; --char:#2c2426;
+  --cream:#fff6ec; --cream-2:#f6e2cf; --gold:#f2ae00; --gold-l:#ffd25e;
+  --muted:#6e5b61; --line:#dcc2ae;
+  --panel:105mm;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:#7d7d7d}
+body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.sheet{width:420mm;height:297mm;margin:10mm auto;display:grid;grid-template-columns:repeat(4,var(--panel));overflow:hidden;page-break-after:always;break-after:page;box-shadow:0 4mm 14mm rgba(0,0,0,.35)}
+.sheet:last-child{page-break-after:auto;break-after:auto}
+@media print{html,body{background:none}.sheet{margin:0;box-shadow:none}}
+
+/* ---------- الجزء (panel) ---------- */
+.pn{position:relative;width:var(--panel);height:297mm;overflow:hidden;background:var(--cream);display:flex;flex-direction:column}
+/* ملمس ورق خفيف */
+.pn::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.5;background:
+  radial-gradient(circle at 15% 85%,rgba(242,174,0,.10),transparent 35%),
+  radial-gradient(circle at 90% 40%,rgba(122,22,38,.06),transparent 40%),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cg fill='%237a1626' fill-opacity='.05'%3E%3Ccircle cx='10' cy='12' r='1.2'/%3E%3Ccircle cx='70' cy='40' r='1'/%3E%3Ccircle cx='40' cy='90' r='1.3'/%3E%3Ccircle cx='100' cy='100' r='1'/%3E%3Ccircle cx='95' cy='8' r='.8'/%3E%3C/g%3E%3C/svg%3E")}
+/* خط الطي بين الأجزاء (يظهر خفيف جدًا) */
+.pn+.pn{box-shadow:inset -.25mm 0 0 rgba(122,22,38,.10)}
+.pn__body{position:relative;flex:1;padding:0 6mm 5mm;display:flex;flex-direction:column;gap:2.6mm;min-height:0}
+
+/* ---------- صورة رأس الجزء ---------- */
+.ban{position:relative;height:var(--ph,48mm);flex:none}
+.ban img{width:100%;height:100%;object-fit:cover;display:block}
+.ban::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(40,6,14,.35))}
+/* حافة ورق ممزق */
+.ban svg.tear{position:absolute;bottom:-.2mm;left:0;width:100%;height:7mm;z-index:1}
+.ai{position:absolute;z-index:2;top:3mm;left:3mm;font-size:5.6pt;font-weight:700;color:#fff;background:rgba(0,0,0,.5);padding:0 2.2mm;border-radius:9mm}
+
+/* ---------- عنوان بفرشاة ---------- */
+.brush{position:relative;align-self:flex-start;margin:-9mm 0 0 0;z-index:3;padding:1.4mm 7mm 2.4mm 8mm;color:#fff;font-family:'Lalezar',serif;font-weight:400;font-size:17pt;line-height:1.15;white-space:nowrap}
+.brush::before{content:"";position:absolute;inset:0;z-index:-1;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 80' preserveAspectRatio='none'%3E%3Cpath fill='%237a1626' d='M6 22 C40 8 95 14 140 9 C190 4 240 12 292 6 C298 20 296 34 299 47 C294 60 297 70 290 76 C240 70 180 79 120 73 C80 70 40 78 8 72 C3 60 9 49 2 38 C5 31 1 27 6 22Z'/%3E%3Cpath fill='%235e1120' fill-opacity='.55' d='M20 66 C70 62 130 70 190 64 C230 61 262 67 286 63 L288 70 C240 74 170 71 110 75 C70 77 40 72 18 73Z'/%3E%3C/svg%3E") center/100% 100% no-repeat;filter:drop-shadow(.8mm .8mm 0 var(--gold))}
+.brush--plain{margin-top:0}
+.brush small{font-family:'Cairo';font-weight:700;font-size:7.5pt;opacity:.9;margin-inline-start:2mm}
+
+.note{font-size:6.8pt;color:var(--muted);margin-top:-1mm}
+.grp{display:flex;align-items:center;gap:2mm;font-weight:900;font-size:8.6pt;color:var(--maroon);margin-top:.6mm}
+.grp::before{content:"";width:2.2mm;height:2.2mm;border-radius:50%;background:var(--gold);box-shadow:0 0 0 .6mm rgba(242,174,0,.25)}
+.grp::after{content:"";flex:1;height:.3mm;background:linear-gradient(90deg,transparent,var(--line))}
+
+/* ---------- جدول الأسعار بكبسولات (زي روح المنيو الأصلي) ---------- */
+.tbl{display:grid;grid-template-columns:1fr repeat(var(--n),var(--cw,10mm));column-gap:1mm;align-items:start;position:relative}
+.tbl .h{font-size:6.6pt;font-weight:800;color:var(--maroon);text-align:center;padding-bottom:1.2mm;line-height:1.1}
+.cap{align-self:stretch;border-radius:5mm;background:var(--maroon);margin:-.8mm 0;z-index:0;box-shadow:inset 0 -.6mm 0 rgba(0,0,0,.18)}
+.cap.alt{background:var(--char)}
+.nm{position:relative;z-index:1;padding:.75mm 0 .75mm;border-bottom:.25mm dotted #cfb39f;line-height:1.2}
+.nm b{font-size:8.3pt;font-weight:800}
+.nm small{display:block;font-size:6.1pt;color:var(--muted);font-weight:600;line-height:1.25;margin-top:.2mm}
+.pc{position:relative;z-index:1;text-align:center;color:#fff;font-weight:800;font-size:8.6pt;padding-top:.75mm;line-height:1.2}
+.pc.na{opacity:.55}
+.nm:last-of-type{border-bottom:0}
+.new{display:inline-block;font-size:5.4pt;font-weight:800;background:#c8283b;color:#fff;border-radius:1mm;padding:0 1.2mm;margin-inline-start:1.2mm;vertical-align:1px;line-height:1.6}
+.two{display:grid;grid-template-columns:1fr 1fr;column-gap:3.5mm}
+.two .tbl{--cw:8.6mm;column-gap:.7mm}
+.two .nm b{font-size:7.9pt}
+
+/* ---------- أطباق مميزة ---------- */
+.star{display:flex;align-items:center;gap:3mm;background:linear-gradient(120deg,var(--maroon),var(--maroon-d));color:#fff;border-radius:4mm;padding:2.4mm 3mm;position:relative;box-shadow:0 1.2mm 3mm rgba(74,11,23,.25)}
+.star img{width:18mm;height:18mm;border-radius:50%;object-fit:cover;border:.8mm solid var(--gold);flex:none}
+.star div{flex:1;min-width:0}
+.star h4{font-family:'Lalezar',serif;font-weight:400;font-size:13pt;color:var(--gold-l);line-height:1.15}
+.star p{font-size:6.2pt;opacity:.92;line-height:1.3}
+.star .pr{flex:none;width:15mm;height:15mm;border-radius:50%;background:var(--gold);color:var(--maroon-d);display:flex;flex-direction:column;align-items:center;justify-content:center;font-family:'Lalezar',serif;font-size:14pt;line-height:1}
+.star .pr small{font-family:'Cairo';font-size:5.6pt;font-weight:800}
+.star .tag{position:absolute;top:-1.6mm;inset-inline-start:4mm;font-size:5.6pt;font-weight:900;background:var(--gold);color:var(--maroon-d);padding:0 2mm;border-radius:9mm}
+
+/* ---------- الغلاف ---------- */
+.cover{background:var(--maroon-d);color:#fff}
+.cover .cv{position:relative;height:178mm;flex:none}
+.cover .cv img{width:100%;height:100%;object-fit:cover}
+.cover .cv::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(74,11,23,0) 40%,rgba(74,11,23,.65) 75%,var(--maroon-d) 100%)}
+.cover .id{position:absolute;z-index:2;top:126mm;left:0;right:0;display:flex;flex-direction:column;align-items:center;text-align:center}
+.cover .logo{width:40mm;height:40mm;border-radius:50%;border:1.6mm solid var(--gold);object-fit:cover;box-shadow:0 2mm 6mm rgba(0,0,0,.5)}
+.cover h1{font-family:'Lalezar',serif;font-weight:400;font-size:44pt;line-height:1;margin-top:2mm;text-shadow:0 1mm 3mm rgba(0,0,0,.4)}
+.cover .tagl{font-family:'Lalezar',serif;font-size:15pt;color:var(--gold);letter-spacing:.4mm}
+.cover .rest{position:relative;z-index:2;margin-top:auto;padding:0 6mm 6mm;display:flex;flex-direction:column;gap:3mm;align-items:center;text-align:center}
+.orn{display:flex;align-items:center;gap:2mm;color:var(--gold);font-size:8pt;width:100%}
+.orn::before,.orn::after{content:"";flex:1;height:.3mm;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.qrs{display:grid;grid-template-columns:1fr 1fr;gap:3mm;width:100%}
+.qrc{background:#fff;color:var(--ink);border-radius:3.5mm;padding:2.2mm 2mm 1.8mm;display:flex;flex-direction:column;align-items:center;gap:.6mm}
+.qrc img{width:27mm;height:27mm}
+.qrc b{font-family:'Lalezar',serif;font-weight:400;font-size:10.5pt;color:var(--maroon);line-height:1.1}
+.qrc span{font-size:6pt;font-weight:700;color:var(--muted);line-height:1.2}
+.phones{display:grid;grid-template-columns:auto 1fr;gap:1.4mm 3mm;align-items:center;font-size:17.5pt;font-weight:900;width:100%;padding:0 1mm;line-height:1.15}
+.phones i{font-style:normal;font-size:9.5pt;font-weight:900;color:var(--maroon-d);background:var(--gold);border-radius:9mm;padding:.4mm 3mm;text-align:center}
+.phones span{direction:ltr;text-align:right;letter-spacing:.3mm}
+.addr{font-size:11pt;font-weight:700;line-height:1.4;background:rgba(0,0,0,.22);border:.35mm solid rgba(242,174,0,.55);border-radius:3mm;padding:2mm 3mm;width:100%}
+.cover .ai{top:auto;bottom:4mm;left:50%;transform:translateX(-50%);white-space:nowrap}
+
+/* ---------- جزء غامق (الضهر الأخير) ---------- */
+.dark{background:var(--char);color:#f6ebe2}
+.dark::before{opacity:.25}
+.dark .nm{border-bottom-color:rgba(255,255,255,.18)}
+.dark .nm small,.dark .note{color:#c9b5ac}
+.dark .tbl .h{color:var(--gold)}
+.dark .cap{background:var(--maroon)}
+.dark .cap.alt{background:#4a3c3f}
+.dark .grp{color:var(--gold)}
+.dark .grp::after{background:linear-gradient(90deg,transparent,rgba(242,174,0,.4))}
+.dark .star{background:linear-gradient(120deg,#3a2f31,#2a2224);border:.3mm solid rgba(242,174,0,.35)}
+.list3{display:grid;grid-template-columns:repeat(3,1fr);gap:0 3mm}
+.li{display:flex;justify-content:space-between;align-items:baseline;gap:1mm;padding:.5mm 0;border-bottom:.25mm dotted rgba(255,255,255,.2);font-size:7pt;font-weight:700;line-height:1.25}
+.li em{font-style:normal;color:var(--gold);font-weight:900}
+.drinks{border:.4mm solid var(--gold);border-radius:4mm;padding:2.4mm 3.2mm;position:relative}
+.drinks h4{font-family:'Lalezar',serif;font-weight:400;font-size:13pt;color:var(--gold);line-height:1.2}
+.drinks li{list-style:none;font-size:7.2pt;line-height:1.35}
+.drinks li b{color:var(--gold-l)}
+.fin{margin-top:auto;text-align:center;font-size:6.4pt;opacity:.75}
+
+
+/* ============ شخصيات الأجزاء (كل جزء له خلفية وطريقة صورة مختلفة) ============ */
+.pn.k-cream{background:var(--cream)}
+.pn.k-butter{background:#fdf0db}
+.pn.k-kraft{background:#f3e3cc}
+.pn.k-kraft::before{opacity:.9;background:
+  repeating-linear-gradient(90deg,rgba(120,80,40,.035) 0 1.2mm,transparent 1.2mm 3mm),
+  radial-gradient(circle at 80% 90%,rgba(122,22,38,.07),transparent 40%)}
+.pn.k-blush{background:#fff0ec}
+.pn.k-blush::before{opacity:.8;background:
+  radial-gradient(circle at 10% 8%,rgba(200,40,59,.08),transparent 30%),
+  url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Cpath d='M30 26c-3-6-12-4-10 3 1 4 10 9 10 9s9-5 10-9c2-7-7-9-10-3z' fill='%23c8283b' fill-opacity='.035'/%3E%3C/svg%3E")}
+.pn.k-wine,.pn.k-char{color:#f8ece4}
+.pn.k-wine{background:linear-gradient(180deg,#6b1222,#4a0b17)}
+.pn.k-char{background:linear-gradient(180deg,#2f2729,#221c1d)}
+.pn.k-wine::before,.pn.k-char::before{opacity:.22}
+.k-wine .nm,.k-char .nm{border-bottom-color:rgba(255,255,255,.16)}
+.k-wine .nm small,.k-char .nm small,.k-wine .note,.k-char .note{color:#e3c8bd}
+.k-wine .tbl .h,.k-char .tbl .h,.k-wine .grp,.k-char .grp{color:var(--gold)}
+.k-wine .grp::after,.k-char .grp::after{background:linear-gradient(90deg,transparent,rgba(242,174,0,.45))}
+/* كبسولات مختلفة حسب الجزء */
+.k-wine .cap{background:var(--gold)} .k-wine .cap.alt{background:#fff1de}
+.k-wine .pc{color:var(--maroon-d)}
+.k-char .cap{background:var(--maroon)} .k-char .cap.alt{background:var(--gold)}
+.k-kraft .cap{background:#8a2a1c} .k-kraft .cap.alt{background:#3b2a22}
+.k-blush .cap{background:#b0203a} .k-blush .cap.alt{background:#5a2330}
+.k-butter .cap.alt{background:#b5761a}
+.k-wine .star,.k-char .star{background:linear-gradient(120deg,rgba(0,0,0,.28),rgba(0,0,0,.12));border:.35mm solid rgba(242,174,0,.5);box-shadow:none}
+
+/* ---------- الهيدر ---------- */
+.hdr{position:relative;height:var(--h);flex:none}
+.hdr .ttl{position:absolute;z-index:4;bottom:0;right:6mm}
+.hdr .ttl .brush{margin:0}
+.lbl{position:absolute;z-index:5;font-size:5.4pt;font-weight:700;color:#fff;background:rgba(0,0,0,.5);padding:0 2mm;border-radius:9mm;white-space:nowrap}
+
+/* 1) طبق دائري طالع من الركن */
+.disc{position:absolute;z-index:2;width:var(--d);height:var(--d);border-radius:50%;overflow:hidden;
+  box-shadow:0 0 0 1.8mm var(--gold),0 0 0 3.2mm rgba(255,255,255,.9),0 3mm 7mm 3.2mm rgba(40,6,14,.35)}
+.disc img{width:100%;height:100%;object-fit:cover;object-position:var(--op,50% 50%);transform:scale(var(--sc,1))}
+.disc .lbl{bottom:7mm;left:50%;transform:translateX(-50%)}
+.stack{position:absolute;z-index:4;top:var(--st,9mm);right:6mm;text-align:right;font-family:'Lalezar',serif;font-weight:400;line-height:.95}
+.stack b{display:block;font-weight:400;font-size:13pt;color:var(--gold)}
+.stack span{display:block;font-size:30pt;color:var(--maroon);text-shadow:.6mm .6mm 0 rgba(242,174,0,.55)}
+.k-wine .stack span,.k-char .stack span{color:#fff;text-shadow:.6mm .6mm 0 rgba(0,0,0,.35)}
+.stack i{display:block;width:22mm;height:.7mm;margin:2mm 0 0 auto;background:linear-gradient(90deg,transparent,var(--gold))}
+.stack small{display:block;font-family:'Cairo';font-size:6.8pt;font-weight:700;color:var(--muted);margin-top:1.5mm;line-height:1.35;max-width:38mm}
+
+/* 2) قصة مايلة بخط ذهبي */
+.diag .ph{position:absolute;inset:0;clip-path:polygon(0 0,100% 0,100% 72%,0 100%);overflow:hidden}
+.diag .ph img{width:100%;height:100%;object-fit:cover}
+.diag::before{content:"";position:absolute;inset:0 0 -1.4mm 0;z-index:1;background:var(--gold);clip-path:polygon(0 96%,100% 69%,100% 72%,0 100%)}
+.diag.rev .ph{clip-path:polygon(0 0,100% 0,100% 100%,0 72%)}
+.diag.rev::before{clip-path:polygon(0 69%,100% 96%,100% 100%,0 72%)}
+.diag .lbl{top:3mm;left:3mm}
+
+/* 3) بولارويد مايلة بشريط لاصق */
+.pola{position:absolute;z-index:2;top:6mm;left:7mm;width:66mm;background:#fff;padding:2mm 2mm 6.5mm;transform:rotate(-4deg);box-shadow:0 2.5mm 6mm rgba(60,30,10,.35)}
+.pola img{width:100%;height:34mm;object-fit:cover;display:block}
+.pola::before{content:"";position:absolute;top:-3mm;left:50%;width:22mm;height:6mm;transform:translateX(-50%) rotate(3deg);background:rgba(242,174,0,.55);box-shadow:0 .3mm .8mm rgba(0,0,0,.15)}
+.pola .cap-t{position:absolute;bottom:.6mm;right:3mm;font-family:'Lalezar',serif;font-size:9pt;color:var(--maroon)}
+.pola .lbl{top:4mm;left:4mm}
+.pola2{position:absolute;z-index:1;top:8mm;right:8mm;width:30mm;background:#fff;padding:1.4mm 1.4mm 4mm;transform:rotate(7deg);box-shadow:0 2mm 5mm rgba(60,30,10,.3)}
+.pola2 img{width:100%;height:22mm;object-fit:cover;display:block}
+
+/* 4) صورة بقوس في آخر الجزء */
+.arch{position:relative;margin:auto -6mm -5mm;height:var(--h);flex:none}
+.arch .ph{position:absolute;inset:0;clip-path:ellipse(80% 100% at 50% 100%);overflow:hidden}
+.arch .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.arch::before{content:"";position:absolute;inset:-2.2mm 0 0 0;background:var(--gold);clip-path:ellipse(80% 100% at 50% 100%)}
+.arch .lbl{bottom:4mm;left:4mm}
+
+/* 5) ختم دائري جنب العنوان */
+.row-t{display:flex;align-items:center;justify-content:space-between;gap:3mm;flex:none}
+.stamp{position:relative;width:var(--d);height:var(--d);border-radius:50%;flex:none;padding:1.4mm;border:.5mm dashed var(--gold)}
+.stamp img{width:100%;height:100%;border-radius:50%;object-fit:cover;box-shadow:0 1.5mm 4mm rgba(60,10,20,.3)}
+.stamp .lbl{bottom:-1mm;left:50%;transform:translateX(-50%)}
+.brush.lg{font-size:19pt;padding:1.6mm 8mm 2.6mm 9mm}
+
+@media screen{.over{outline:2mm solid red;outline-offset:-2mm}}
+
+/* ============================================================
+   نسخة الكتاب — كل صفحة A4 طولي (210×297mm)، 8 صفحات
+   الترتيب للقراءة: 1 الغلاف ← 8 الضهر. الكتاب بيتفتح من اليمين:
+   الصفحة الزوجية على اليمين والفردية على الشمال في كل فتحة.
+   للمطبعة: Bleed 3mm، والتدبيس في النص (Saddle stitch).
+   ============================================================ */
+@page { size: 210mm 297mm; margin: 0; }
+.page{width:210mm;height:297mm;margin:10mm auto;position:relative;overflow:hidden;display:flex;flex-direction:column;page-break-after:always;break-after:page;box-shadow:0 4mm 14mm rgba(0,0,0,.35)}
+.page:last-child{page-break-after:auto;break-after:auto}
+@media print{.page{margin:0;box-shadow:none}}
+.page.pn{width:210mm}
+.cols{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:0 9mm;padding:0 12mm;flex:1;min-height:0}
+.cols>.col{display:flex;flex-direction:column;gap:2.6mm;min-width:0;min-height:0;position:relative}
+.wide{position:relative;padding:0 12mm;flex:none;display:flex;flex-direction:column;gap:2.6mm}
+.folio{position:relative;flex:none;height:13mm;display:flex;align-items:center;justify-content:center;gap:3mm;font-size:7.5pt;font-weight:800;color:var(--muted)}
+.folio::before,.folio::after{content:"";width:22mm;height:.3mm;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.k-wine .folio,.k-char .folio{color:#d9bfb5}
+.folio b{font-family:'Lalezar',serif;font-weight:400;font-size:11pt;color:var(--gold)}
+.tbl{--cw:11mm}
+.nm b{font-size:8.8pt} .nm small{font-size:6.5pt} .pc{font-size:9pt}
+.two .tbl{--cw:11mm}
+
+/* عنوان الصفحة الكبير */
+.ptitle{position:absolute;z-index:4;font-family:'Lalezar',serif;font-weight:400;line-height:.95;text-align:right}
+.ptitle b{display:block;font-weight:400;font-size:15pt;color:var(--gold)}
+.ptitle span{display:block;font-size:44pt;color:var(--maroon);text-shadow:.8mm .8mm 0 rgba(242,174,0,.5)}
+.k-wine .ptitle span,.k-char .ptitle span{color:#fff;text-shadow:.8mm .8mm 0 rgba(0,0,0,.35)}
+.ptitle i{display:block;width:36mm;height:.8mm;margin:3mm 0 0 auto;background:linear-gradient(90deg,transparent,var(--gold))}
+.ptitle small{display:block;font-family:'Cairo';font-size:8.5pt;font-weight:700;color:var(--muted);margin-top:2mm;line-height:1.4;max-width:80mm}
+.k-wine .ptitle small,.k-char .ptitle small{color:#e3c8bd}
+
+/* الغلاف */
+.bcover{background:var(--maroon-d);color:#fff}
+.bcover .cvph{position:absolute;inset:0 0 auto 0;height:205mm}
+.bcover .cvph img{width:100%;height:100%;object-fit:cover}
+.bcover .cvph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(74,11,23,.05) 30%,rgba(74,11,23,.7) 72%,var(--maroon-d) 100%)}
+.bcover .frame{position:absolute;inset:7mm;border:.5mm solid rgba(242,174,0,.65);border-radius:4mm;z-index:3;pointer-events:none}
+.bcover .frame::after{content:"";position:absolute;inset:1.6mm;border:.25mm solid rgba(242,174,0,.35);border-radius:3mm}
+.bcover .id{position:absolute;z-index:4;left:0;right:0;top:150mm;display:flex;flex-direction:column;align-items:center;text-align:center}
+.bcover .logo{width:62mm;height:62mm;border-radius:50%;border:2mm solid var(--gold);object-fit:cover;box-shadow:0 3mm 9mm rgba(0,0,0,.55)}
+.bcover h1{font-family:'Lalezar',serif;font-weight:400;font-size:72pt;line-height:1;margin-top:3mm;text-shadow:0 1.2mm 4mm rgba(0,0,0,.45)}
+.bcover .tagl{font-family:'Lalezar',serif;font-size:22pt;color:var(--gold);letter-spacing:.6mm}
+.bcover .mn{margin-top:5mm;display:flex;align-items:center;gap:4mm;font-family:'Lalezar',serif;font-size:16pt;letter-spacing:2mm;color:#f3dcd2}
+.bcover .mn::before,.bcover .mn::after{content:"";width:24mm;height:.4mm;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+
+/* الضهر */
+.back-band{margin-top:auto;background:rgba(0,0,0,.25);border-top:.5mm solid var(--gold);padding:5mm 12mm 6mm;display:grid;grid-template-columns:1fr auto;gap:6mm;align-items:center;color:#fff}
+.back-band .phones{display:grid;grid-template-columns:auto 1fr;gap:1.6mm 3.5mm;align-items:center;font-size:16pt;font-weight:900;line-height:1.15}
+.back-band .phones i{font-style:normal;font-size:9pt;font-weight:900;color:var(--maroon-d);background:var(--gold);border-radius:9mm;padding:.4mm 3mm;text-align:center}
+.back-band .phones span{direction:ltr;text-align:right;letter-spacing:.3mm}
+.back-band .addr{grid-column:1/-1;font-size:11pt;font-weight:700;line-height:1.4;background:rgba(0,0,0,.2);border:.35mm solid rgba(242,174,0,.55);border-radius:3mm;padding:2mm 3.5mm}
+.back-band .qrs{display:flex;gap:3mm}
+.back-band .qrc{width:36mm}
+.back-band .qrc img{width:28mm;height:28mm}
+
+/* صفحة الأطباق المميزة */
+.sig-grid{display:grid;grid-template-columns:1fr 1fr;gap:5mm}
+.sig-grid .star{flex-direction:column;align-items:stretch;text-align:center;padding:0 0 3.5mm;overflow:hidden;border-radius:5mm}
+.sig-grid .star img{width:100%;height:46mm;border-radius:0;border:0;border-bottom:1mm solid var(--gold)}
+.sig-grid .star div{padding:0 3.5mm}
+.sig-grid .star h4{font-size:17pt;margin-top:1mm}
+.sig-grid .star p{font-size:7.2pt}
+.sig-grid .star .pr{position:absolute;top:36mm;left:4mm;width:19mm;height:19mm;font-size:17pt;box-shadow:0 1mm 3mm rgba(0,0,0,.35)}
+.sig-grid .star .tag{top:3mm;inset-inline-start:3mm;font-size:7pt;padding:.3mm 2.6mm}
+.intro{font-size:10pt;font-weight:700;line-height:1.7;color:#ecd9cf;text-align:center;max-width:150mm;margin:0 auto}
+</style>
+</head>
+<body>
+<div id="out"></div>
+<script src="menu.js"></script>
+<script>
+(() => {
+  const esc = s => String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const cat = id => MENU.find(c => c.id === id);
+  const groupsOf = c => c.groups || [{ items: c.items }];
+  const AI = typeof PHOTOS_ILLUSTRATIVE !== "undefined" && PHOTOS_ILLUSTRATIVE;
+  const HQ = name => `assets/photos-xl/${name}.jpg`;   // نسخة مكبرة ×2 للصفحات الكبيرة     // صور عالية الجودة للطباعة
+  const PIZZA = /^بيتزا\s+/;
+  // الجزء المتكرر في وصف البيتزا الإيطالي — مكتوب مرة واحدة في ملاحظة القسم
+  const STRIP = /\s*\+\s*صوص بيتزا\s*\+\s*(موتزاريلا\s*\+\s*زيتون|زيتون\s*\+\s*موتزاريلا)\s*$/;
+  const TEAR = (fill) => `<svg class="tear" viewBox="0 0 400 28" preserveAspectRatio="none"><path fill="${fill}" d="M0 14 L18 9 L31 15 L47 7 L66 13 L80 6 L101 12 L118 8 L134 15 L152 9 L170 14 L188 6 L207 12 L224 8 L240 15 L259 9 L276 13 L293 7 L311 14 L329 8 L347 13 L364 6 L382 12 L400 8 L400 28 L0 28Z"/></svg>`;
+
+  // جدول بكبسولات أسعار
+  function table(sizes, items, opts = {}) {
+    const n = sizes.length;
+    let h = `<div class="tbl" style="--n:${n}"><span></span>${sizes.map(s => `<span class="h">${esc(s)}</span>`).join("")}`;
+    sizes.forEach((_, i) => { h += `<span class="cap${i % 2 ? " alt" : ""}" style="grid-column:${i + 2};grid-row:2 / span ${items.length}"></span>`; });
+    items.forEach((it, r) => {
+      let d = opts.desc && it.d ? it.d : "";
+      if (opts.strip) d = d.replace(opts.strip, "").trim();
+      const name = opts.drop ? it.n.replace(opts.drop, "") : it.n;
+      h += `<div class="nm" style="grid-row:${r + 2};grid-column:1"><b>${esc(name)}</b>${it.new ? '<span class="new">جديد</span>' : ""}${d ? `<small>${esc(d)}</small>` : ""}</div>`;
+      sizes.forEach((_, i) => { const p = it.p[i]; h += `<span class="pc${p == null ? " na" : ""}" style="grid-row:${r + 2};grid-column:${i + 2}">${p == null ? "–" : p}</span>`; });
+    });
+    return h + "</div>";
+  }
+  function star(it, img, tag) {
+    const unit = it.s && it.s[0] !== "حجم واحد" ? it.s[0] : "جنيه";
+    return `<div class="star">${tag ? `<span class="tag">${esc(tag)}</span>` : ""}${img ? `<img src="${img}" alt="">` : ""}<div><h4>${esc(it.n)}</h4>${it.d ? `<p>${esc(it.d)}</p>` : ""}</div><span class="pr">${it.p[0]}<small>${esc(unit)}</small></span></div>`;
+  }
+  // محتوى قسم (من غير العنوان): المجموعات العادية جداول، والأصناف ذات المقاسات الخاصة بوكسات/جداول صغيرة
+  function body(id, opts = {}) {
+    const c = cat(id); let h = "";
+    if (c.note && opts.note !== false) h += `<p class="note">${esc(c.note)}</p>`;
+    groupsOf(c).forEach((g, gi) => {
+      if (opts.groups && !opts.groups.includes(gi)) return;
+      const sizes = g.s || c.s;
+      const normal = g.items.filter(it => !it.s), special = g.items.filter(it => it.s);
+      if (normal.length) {
+        if (g.t && opts.grp !== false) h += `<div class="grp">${esc(g.t)}</div>`;
+        if (opts.two) {
+          const half = Math.ceil(normal.length / 2);
+          h += `<div class="two">${table(sizes, normal.slice(0, half), opts)}${table(sizes, normal.slice(half), opts)}</div>`;
+        } else h += table(sizes, normal, opts);
+      }
+      special.forEach(it => { h += it.p.length === 1 ? star(it, opts.starImg, opts.starTag) : table(it.s, [it], opts); });
+    });
+    return h;
+  }
+  const brush = (t, plain, sub) => `<h2 class="brush${plain ? " brush--plain" : ""}">${esc(t)}${sub ? `<small>${esc(sub)}</small>` : ""}</h2>`;
+  const banner = (img, ph, fill = "var(--cream)") =>
+    `<div class="ban" style="--ph:${ph}mm"><img src="${HQ(img)}" alt="">${AI ? '<span class="ai">صورة توضيحية</span>' : ""}${TEAR(fill === "dark" ? "#2c2426" : "#fff6ec")}</div>`;
+
+  /* ================= نسخة الكتاب A4 ================= */
+  const L = AI ? '<span class="lbl">صورة توضيحية</span>' : "";
+  const disc = (img, d, pos, op, sc) => `<div class="disc" style="--d:${d}mm;${pos};--op:${op || "50% 50%"};--sc:${sc || 1}"><img src="${HQ(img)}" alt="">${L}</div>`;
+  const folio = n => `<div class="folio"><b>تشيلوس</b><span>${n}</span></div>`;
+  const page = (cls, inner) => `<section class="page pn ${cls}">${inner}</section>`;
+  const ext = cat("extras");
+  const pizzaGroups = cat("pizza-it").groups;
+  const chilosPizza = pizzaGroups[4].items[0];
+  const chilosFateer = cat("sweet-fatayer").groups[1].items[0];
+  const [faceItalian, meshaltet] = cat("hadiq").groups[1].items;
+
+  // 1) الغلاف
+  const p1 = page("bcover", `
+    <div class="cvph"><img src="${HQ("cover")}" alt=""></div>
+    <div class="frame"></div>
+    <div class="id">
+      <img class="logo" src="assets/logo.jpg" alt="">
+      <h1>تشيلوس</h1>
+      <div class="tagl">بيتزا · فطير · كريب</div>
+      <div class="mn">المنيو</div>
+    </div>`);
+
+  // 2) أطباق تشيلوس المميزة
+  const p2 = page("k-char", `
+    <div class="hdr" style="--h:78mm">
+      ${disc("chilos-pizza", 118, "top:-34mm;left:-30mm", "55% 50%", 1.1)}
+      <div class="ptitle" style="top:16mm;right:12mm"><b>اختيارات الشيف</b><span>أطباق</span><span>تشيلوس</span><i></i><small>الأصناف اللي معمولة باسمنا</small></div>
+    </div>
+    <div class="wide" style="flex:1;justify-content:center;gap:5mm">
+      <div class="sig-grid">
+        ${star(chilosPizza, HQ("chilos-pizza"), "الأشهر")}
+        ${star(chilosFateer, HQ("sweet-fatayer"), "الأشهر")}
+        ${star(faceItalian, HQ("hadiq"), "")}
+        ${star({ n: "كريب تشيلوس", d: cat("crepe-special").items.find(i => i.n === "تشيلوس").d, p: [cat("crepe-special").items.find(i => i.n === "تشيلوس").p[0]], s: ["كبير"] }, HQ("crepe-special"), "")}
+      </div>
+      ${table(meshaltet.s, [meshaltet])}
+    </div>
+    ${folio(2)}`);
+
+  // 3) البيتزا الإيطالي
+  const p3 = page("k-cream", `
+    <div class="hdr" style="--h:84mm">
+      ${disc("pizza-it", 118, "top:-36mm;left:-32mm", "50% 52%", 1.2)}
+      <div class="ptitle" style="top:18mm;right:12mm"><b>تشيلوس</b><span>البيتزا</span><span>الإيطالي</span><i></i><small>${esc(cat("pizza-it").note)}</small></div>
+    </div>
+    <div class="cols">
+      <div class="col">${body("pizza-it", { desc: true, note: false, groups: [0, 1], strip: STRIP })}</div>
+      <div class="col">${body("pizza-it", { desc: true, note: false, groups: [2, 3], strip: STRIP })}</div>
+    </div>
+    ${folio(3)}`);
+
+  // 4) البيتزا الشرقي + الإضافات
+  const orItems = cat("pizza-or").items, orHalf = Math.ceil(orItems.length / 2);
+  const p4 = page("k-wine", `
+    <div class="hdr diag" style="--h:122mm">
+      <div class="ph"><img src="${HQ("pizza-or")}" alt=""></div>${L}
+      <div class="ttl" style="right:12mm">${brush("البيتزا الشرقي").replace('class="brush', 'class="brush lg')}</div>
+    </div>
+    <div class="cols" style="padding-top:3mm">
+      <div class="col">${table(cat("pizza-or").s, orItems.slice(0, orHalf), { drop: PIZZA })}</div>
+      <div class="col">${table(cat("pizza-or").s, orItems.slice(orHalf), { drop: PIZZA })}</div>
+    </div>
+    <div class="wide" style="margin-top:auto">
+      ${brush("إضافات الفطير والبيتزا", true)}
+      <div class="cols" style="padding:0">
+        <div class="col">${table(ext.groups[0].s, ext.groups[0].items.filter(i => !i.s))}</div>
+        <div class="col"><div class="list3" style="grid-template-columns:1fr 1fr">${ext.groups[0].items.filter(i => i.s).map(i => `<div class="li"><span>${esc(i.n.replace(/^إضافة\s+/, ""))}</span><em>${i.p[0]}</em></div>`).join("")}</div></div>
+      </div>
+    </div>
+    ${folio(4)}`);
+
+  // 5) الفطير الحادق
+  const hq = cat("hadiq").groups[0].items, hqHalf = Math.ceil(hq.length / 2);
+  const p5 = page("k-butter", `
+    <div class="wide" style="padding-top:12mm">${brush("الفطير الحادق").replace('class="brush', 'class="brush lg')}</div>
+    <div class="cols" style="padding-top:3mm">
+      <div class="col">${table(cat("hadiq").s, hq.slice(0, hqHalf), { drop: /^فطيرة\s+/ })}</div>
+      <div class="col">${table(cat("hadiq").s, hq.slice(hqHalf), { drop: /^فطيرة\s+/ })}</div>
+    </div>
+    <div class="arch" style="--h:auto;margin:3mm 0 0;flex:1 1 auto;min-height:90mm"><div class="ph"><img src="${HQ("hadiq")}" alt=""></div>${L}</div>
+    ${folio(5)}`);
+
+  // 6) الفطير الحلو
+  const sw = cat("sweet-fatayer").groups[0].items, swHalf = Math.ceil(sw.length / 2);
+  const p6 = page("k-blush", `
+    <div class="hdr" style="--h:104mm">
+      ${disc("sweet-fatayer", 124, "top:-22mm;left:-22mm", "50% 55%", 1.1)}
+      <div class="ptitle" style="top:30mm;right:12mm"><b>تشيلوس</b><span>الفطير</span><span>الحلو</span><i></i><small>عسل · نوتيلا · لوتس · بسبوسة وكنافة</small></div>
+    </div>
+    <div class="cols">
+      <div class="col">${table(cat("sweet-fatayer").s, sw.slice(0, swHalf), { desc: true })}</div>
+      <div class="col">${table(cat("sweet-fatayer").s, sw.slice(swHalf), { desc: true })}</div>
+    </div>
+    ${folio(6)}`);
+
+  // 7) الكريب
+  const p7 = page("k-kraft", `
+    <div class="hdr" style="--h:52mm">
+      <div class="pola2" style="top:10mm;right:auto;left:92mm;width:40mm"><img src="${HQ("crepe-special")}" alt="" style="height:27mm"></div>
+      <div class="pola" style="top:7mm;left:14mm;width:78mm"><img src="${HQ("crepe-chicken")}" alt="" style="height:34mm">${L}</div>
+      <div class="ptitle" style="top:12mm;right:12mm"><b>تشيلوس</b><span>الكريب</span></div>
+    </div>
+    <div class="cols" style="padding-top:2mm">
+      <div class="col">${brush("كريب الدجاج", true)}${body("crepe-chicken", { desc: true })}</div>
+      <div class="col">${brush("كريب اسبيشيال", true)}${body("crepe-special", { desc: true })}</div>
+    </div>
+    ${folio(7)}`);
+
+  // 8) الضهر: كريب اللحوم + الحلو + أصناف أخرى + إضافات + مشروبات + التواصل
+  const p8 = page("k-wine", `
+    <div class="cols" style="padding-top:11mm">
+      <div class="col">
+        <div class="row-t">${brush("كريب اللحوم", true)}<div class="stamp" style="--d:22mm"><img src="${HQ("crepe-meat")}" alt=""></div></div>
+        ${body("crepe-meat", { desc: true })}
+        ${brush("أصناف أخرى", true)}
+        ${body("other")}
+      </div>
+      <div class="col">
+        <div class="row-t">${brush("كريب حلو", true)}<div class="stamp" style="--d:22mm"><img src="${HQ("crepe-sweet")}" alt=""></div></div>
+        ${body("crepe-sweet", { desc: true })}
+        ${brush("إضافات الكريب", true)}
+        <div class="list3" style="grid-template-columns:1fr 1fr">${ext.groups[1].items.map(i => `<div class="li"><span>${esc(i.n)}</span><em>${i.p[0]}</em></div>`).join("")}</div>
+        <div class="drinks"><h4>🥤 يوجد مشروبات</h4><ul>${cat("drinks").groups[0].items.map(i => `<li><b>${esc(i.n)}:</b> ${esc(i.d)}</li>`).join("")}</ul></div>
+      </div>
+    </div>
+    <div class="back-band">
+      <div class="phones">
+        <i>واتساب</i><span>${esc(CONFIG.waDisplay)}</span>
+        <i>اتصال</i><span>${esc(CONFIG.phoneMobile)}</span>
+        <i>أرضي</i><span>${esc(CONFIG.phoneLandline)}</span>
+      </div>
+      <div class="qrs">
+        <div class="qrc"><img src="assets/qr-menu.svg" alt=""><b>المنيو</b><span>على موبايلك</span></div>
+        <div class="qrc"><img src="assets/qr-site.svg" alt=""><b>موقعنا</b><span>اطلب أونلاين</span></div>
+      </div>
+      <div class="addr">📍 ${esc(CONFIG.address)}</div>
+    </div>`);
+
+  document.getElementById("out").innerHTML = [p1, p2, p3, p4, p5, p6, p7, p8].join("");
+
+  // مراجعة قبل الطباعة: لكل عمود/جزء — زيادة (+) أو مساحة فاضية (-) بالبكسل
+  const check = () => {
+    const res = [];
+    document.querySelectorAll(".page").forEach((pg, pi) => {
+      const pb = pg.getBoundingClientRect().bottom;
+      let worst = -9999;
+      pg.querySelectorAll(".cols>.col, .wide").forEach(c => {
+        const last = [...c.children].pop(); if (!last) return;
+        const limit = c.classList.contains("col") ? c.getBoundingClientRect().bottom : pb;
+        worst = Math.max(worst, Math.round(last.getBoundingClientRect().bottom - limit));
+      });
+      // أي عنصر نازل تحت الفوليو/آخر الصفحة
+      const kids = [...pg.children];
+      const lastKid = kids[kids.length - 1];
+      worst = Math.max(worst, Math.round(lastKid.getBoundingClientRect().bottom - pb));
+      pg.classList.toggle("over", worst > 0);
+      res.push(worst);
+    });
+    document.title = (res.some(v => v > 0) ? "OVERFLOW " : "OK ") + JSON.stringify(res);
+  };
+  Promise.all([document.fonts ? document.fonts.ready : 0, ...[...document.images].map(i => i.complete ? 0 : new Promise(r => (i.onload = i.onerror = r)))])
+    .then(() => setTimeout(check, 200));
+})();
+</script>
+</body>
+</html>
