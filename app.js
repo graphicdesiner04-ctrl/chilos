@@ -11,15 +11,13 @@
   /* ---------- contact links ---------- */
   const waBase = `https://wa.me/${CONFIG.waNumber}`;
   const waHello = `${waBase}?text=${encodeURIComponent("السلام عليكم، عايز أطلب من تشيلوس")}`;
-  // الصفحة الرئيسية وصفحة المنيو بيشتركوا في الملف ده، فكل عنصر اختياري
   const set = (sel, fn) => { const el = $(sel); if (el) fn(el); };
-  const EMENU = document.body.dataset.mode === "emenu";
-  ["#heroWa", "#fab", "#hdrWa", "#emWa"].forEach(s => set(s, el => (el.href = waHello)));
+  ["#heroWa", "#fab", "#hdrWa"].forEach(s => set(s, el => (el.href = waHello)));
   set("#tAddr", el => (el.textContent = CONFIG.address));
   set("#tWa", el => { el.textContent = CONFIG.waDisplay; el.href = waHello; });
   set("#tMobile", el => { el.textContent = CONFIG.phoneMobile; el.href = `tel:${CONFIG.phoneMobile}`; });
   set("#tLand", el => { el.textContent = CONFIG.phoneLandline; el.href = `tel:${CONFIG.phoneLandline}`; });
-  ["#callBtn", "#emCall"].forEach(s => set(s, el => (el.href = `tel:${CONFIG.phoneMobile}`)));
+  set("#callBtn", el => (el.href = `tel:${CONFIG.phoneMobile}`));
   set("#mapBtn", el => (el.href = CONFIG.mapsUrl));
   set("#fbBtn", el => (el.href = CONFIG.facebookUrl));
   set("#yr", el => (el.textContent = new Date().getFullYear()));
@@ -210,10 +208,7 @@
       return;
     }
     chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.c === active)));
-    out.innerHTML = EMENU
-      ? MENU.map(c => `<section class="msec" id="c-${c.id}" aria-labelledby="t-${c.id}"><h2 class="msec__t" id="t-${c.id}">${c.emoji} ${esc(c.t)}</h2>${catHtml(c)}</section>`).join("")
-      : catHtml(MENU.find(c => c.id === active));
-    if (EMENU) spy();
+    out.innerHTML = catHtml(MENU.find(c => c.id === active));
   }
   // يحرّك شريط الأقسام أفقيًا بس (scrollIntoView كان بيلغي سكرول الصفحة)
   function centerChip(id, smooth) {
@@ -221,29 +216,7 @@
     const c = chip.getBoundingClientRect(), w = chips.getBoundingClientRect();
     chips.scrollBy({ left: (c.left + c.width / 2) - (w.left + w.width / 2), behavior: smooth ? "smooth" : "auto" });
   }
-  // scroll-spy: يلوّن القسم الظاهر حاليًا في شريط الأقسام
-  let io, lockSpy = 0;
-  function spy() {
-    if (!("IntersectionObserver" in window)) return;
-    if (io) io.disconnect();
-    io = new IntersectionObserver(es => es.forEach(e => {
-      if (!e.isIntersecting || q.value.trim() || Date.now() < lockSpy) return;
-      active = e.target.id.slice(2);
-      chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.c === active)));
-      centerChip(active, false);
-    }), { rootMargin: "-130px 0px -60% 0px" });
-    out.querySelectorAll(".msec").forEach(sec => io.observe(sec));
-  }
   function setCat(id, scroll) {
-    if (EMENU) {
-      if (q.value) { q.value = ""; renderMenu(); }
-      active = id; lockSpy = Date.now() + 500;
-      chips.querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.c === id)));
-      centerChip(id, true);
-      const sec = document.getElementById("c-" + id);
-      if (sec) window.scrollTo({ top: sec.getBoundingClientRect().top + window.scrollY - 124, behavior: "instant" });  // smooth بيتقطع في القوايم الطويلة
-      return;
-    }
     active = id; q.value = ""; renderMenu();
     centerChip(id, true);
     if (scroll) $("#menu").scrollIntoView({ behavior: "smooth" });

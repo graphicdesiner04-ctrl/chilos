@@ -33,7 +33,9 @@ const GALLERY = [
   { src: "photos/crepe-chicken.webp", alt: "كريب دجاج" },
   { src: "photos/crepe-meat.webp", alt: "كريب لحوم" },
   { src: "photos/crepe-sweet.webp", alt: "كريب حلو" },
-  { src: "photos/pizza-or.webp", alt: "بيتزا شرقي" }
+  { src: "photos/pizza-or.webp", alt: "بيتزا شرقي" },
+  { src: "photos/crepe-special.webp", alt: "كريب اسبيشيال" },
+  { src: "photos/other.webp", alt: "بطاطس وميكس جبن" }
 ];
 
 /* ============================================================
@@ -229,7 +231,7 @@ const MENU = [
     ]
   },
   {
-    id: "crepe-special", t: "كريب اسبيشيال", emoji: "⭐",
+    id: "crepe-special", t: "كريب اسبيشيال", emoji: "⭐", img: "photos/crepe-special.webp",
     s: ["كبير", "رول"],
     items: [
       { n: "تشيكن رانش", d: "دجاج مقرمش + استربس + فلفل + طماطم + صوص رانش + موتزاريلا + خس", p: [110, 165] },
@@ -274,7 +276,7 @@ const MENU = [
     ]
   },
   {
-    id: "other", t: "أصناف أخرى", emoji: "🍟",
+    id: "other", t: "أصناف أخرى", emoji: "🍟", img: "photos/other.webp",
     s: ["صغير", "كبير"],
     items: [
       { n: "ميكس جبن", p: [45, 60] },

@@ -1,0 +1,90 @@
+/* منيو إلكتروني مستقل (menu.html) — صفحة منيو فقط، بدون عناصر الموقع */
+:root{
+  --maroon:#7a1626; --maroon-d:#4e0c18; --ink:#231f20; --cream:#fff7f0; --card:#fff;
+  --gold:#f2ae00; --muted:#7a6a70; --line:#f0dfd2; --red:#c8283b;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%}
+body{font-family:'Cairo',system-ui,sans-serif;background:var(--cream);color:var(--ink);line-height:1.6;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+[hidden]{display:none!important}
+
+/* هيدر المنيو */
+.hero{position:relative;color:#fff;text-align:center;overflow:hidden;background:var(--maroon-d)}
+.hero__bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.55;filter:saturate(1.1)}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(78,12,24,.35) 0%,rgba(78,12,24,.75) 60%,var(--maroon-d) 100%)}
+.hero__in{position:relative;z-index:1;padding:34px 16px 22px;display:flex;flex-direction:column;align-items:center;gap:2px}
+.hero__logo{width:88px;height:88px;border-radius:50%;border:3px solid var(--gold);box-shadow:0 8px 24px rgba(0,0,0,.45)}
+.hero h1{font-family:'Lalezar',serif;font-weight:400;font-size:2.6rem;line-height:1.15;margin-top:8px;text-shadow:0 2px 12px rgba(0,0,0,.4)}
+.hero__tag{font-family:'Lalezar',serif;color:var(--gold);font-size:1.15rem;letter-spacing:.5px}
+.hero__info{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:12px;font-size:.88rem;font-weight:700}
+.hero__info>*{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.25);padding:4px 12px;border-radius:999px}
+.hero__info a span{direction:ltr;unicode-bidi:isolate}
+
+/* شريط الأقسام الثابت */
+.bar{position:sticky;top:0;z-index:20;background:rgba(255,247,240,.96);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;align-items:center;box-shadow:0 4px 14px rgba(78,12,24,.06)}
+.bar__tabs{display:flex;gap:8px;overflow-x:auto;padding:10px 12px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.bar__tabs::-webkit-scrollbar{display:none}
+.tab{flex:none;padding:7px 14px;border-radius:999px;background:var(--card);border:1.5px solid var(--line);font-weight:700;font-size:.9rem;white-space:nowrap;transition:background .15s,color .15s,border-color .15s}
+.tab[aria-current=true]{background:var(--maroon);border-color:var(--maroon);color:#fff}
+.bar__search{width:44px;height:44px;margin-inline-end:6px;border-radius:50%;display:grid;place-items:center;color:var(--maroon)}
+.bar__search[aria-expanded=true]{background:var(--maroon);color:#fff}
+.bar__q{grid-column:1/-1;padding:0 12px 10px}
+.bar__q input{width:100%;font:inherit;padding:10px 16px;border-radius:999px;border:2px solid var(--line);background:#fff;outline:0}
+.bar__q input:focus{border-color:var(--maroon)}
+
+/* الأقسام */
+.list{width:min(980px,100%);margin:0 auto;padding:6px 12px 20px}
+.sec{scroll-margin-top:68px;padding-top:16px}
+.sec__head{position:relative;border-radius:18px;overflow:hidden;margin-bottom:10px;background:var(--maroon)}
+.sec__head img{width:100%;height:auto;aspect-ratio:16/7;object-fit:cover}
+.sec__head::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 35%,rgba(35,8,14,.85))}
+.sec__head h2{position:absolute;z-index:1;bottom:10px;inset-inline-start:16px;color:#fff;font-family:'Lalezar',serif;font-weight:400;font-size:1.9rem;line-height:1.2;text-shadow:0 2px 10px rgba(0,0,0,.5)}
+.sec__head--plain{background:none}
+.sec__head--plain::after{display:none}
+.sec__head--plain h2{position:static;color:var(--maroon);padding:4px 2px}
+.ai{position:absolute;z-index:1;top:8px;inset-inline-end:8px;background:rgba(0,0,0,.55);color:#fff;font-size:.68rem;font-weight:700;padding:1px 9px;border-radius:999px}
+.sec__note{font-size:.84rem;color:var(--muted);margin:0 4px 8px}
+.grp{display:inline-block;margin:10px 4px 6px;font-weight:800;font-size:.85rem;color:#fff;background:var(--ink);padding:1px 14px;border-radius:999px}
+
+.items{background:var(--card);border-radius:16px;box-shadow:0 2px 12px rgba(78,12,24,.06);border:1px solid var(--line);overflow:hidden}
+.it{padding:12px 14px;border-bottom:1px solid var(--line);display:grid;grid-template-columns:1fr auto;gap:2px 12px;align-items:start}
+.it:last-child{border-bottom:0}
+.it h3{font-size:1rem;font-weight:800;line-height:1.45}
+.it p{grid-column:1/2;font-size:.8rem;color:var(--muted);line-height:1.5}
+.badge{display:inline-block;font-size:.66rem;font-weight:800;color:#fff;background:var(--red);border-radius:6px;padding:0 7px;margin-inline-start:6px;vertical-align:2px;line-height:1.7}
+.badge--star{background:var(--gold);color:var(--maroon-d)}
+.pr{grid-column:2;grid-row:1/span 2;display:flex;gap:6px;align-self:center}
+.pr span{display:flex;flex-direction:column;align-items:center;min-width:44px;padding:4px 6px;border-radius:12px;background:var(--cream);border:1px solid var(--line)}
+.pr small{font-size:.66rem;color:var(--muted);font-weight:700;line-height:1.3}
+.pr b{font-size:1rem;color:var(--maroon);line-height:1.2}
+.pr span.off{opacity:.35}
+/* صنف مميز */
+.it--star{background:linear-gradient(90deg,#fff,#fff3dc)}
+.it--star h3{color:var(--maroon)}
+
+.drinks{display:grid;grid-template-columns:1fr;gap:0}
+.drinks .it{grid-template-columns:1fr}
+
+.nores{text-align:center;color:var(--muted);padding:30px 16px 60px}
+
+.foot{background:var(--maroon-d);color:#f3dcd2;text-align:center;padding:24px 16px calc(24px + env(safe-area-inset-bottom));display:flex;flex-direction:column;align-items:center;gap:4px;font-size:.88rem}
+.foot img{border-radius:50%;border:2px solid var(--gold);margin-bottom:4px}
+.foot a{color:var(--gold);font-weight:800;direction:ltr;unicode-bidi:isolate}
+.foot small{opacity:.75;margin-top:6px}
+
+@media (min-width:760px){
+  .items{display:grid;grid-template-columns:1fr 1fr}
+  .it:nth-last-child(2):nth-child(odd){border-bottom:0}
+  .it:nth-child(odd){border-inline-end:1px solid var(--line)}
+  .sec__head img{aspect-ratio:16/5}
+}
+@media (max-width:360px){
+  .pr span{min-width:38px;padding:3px 4px}
+  .pr b{font-size:.92rem}
+  .it{gap:2px 8px;padding:11px 10px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
