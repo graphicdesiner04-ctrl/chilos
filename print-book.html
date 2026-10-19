@@ -240,14 +240,14 @@ body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-pri
 
 /* الغلاف */
 .bcover{background:var(--maroon-d);color:#fff}
-.bcover .cvph{position:absolute;inset:0 0 auto 0;height:205mm}
+.bcover .cvph{position:absolute;inset:0 0 auto 0;height:168mm}
 .bcover .cvph img{width:100%;height:100%;object-fit:cover}
 .bcover .cvph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(74,11,23,.05) 30%,rgba(74,11,23,.7) 72%,var(--maroon-d) 100%)}
 .bcover .frame{position:absolute;inset:7mm;border:.5mm solid rgba(242,174,0,.65);border-radius:4mm;z-index:3;pointer-events:none}
 .bcover .frame::after{content:"";position:absolute;inset:1.6mm;border:.25mm solid rgba(242,174,0,.35);border-radius:3mm}
-.bcover .id{position:absolute;z-index:4;left:0;right:0;top:150mm;display:flex;flex-direction:column;align-items:center;text-align:center}
-.bcover .logo{width:62mm;height:62mm;border-radius:50%;border:2mm solid var(--gold);object-fit:cover;box-shadow:0 3mm 9mm rgba(0,0,0,.55)}
-.bcover h1{font-family:'Lalezar',serif;font-weight:400;font-size:72pt;line-height:1;margin-top:3mm;text-shadow:0 1.2mm 4mm rgba(0,0,0,.45)}
+.bcover .id{position:absolute;z-index:4;left:0;right:0;top:100mm;display:flex;flex-direction:column;align-items:center;text-align:center}
+.bcover .logo{width:52mm;height:52mm;border-radius:50%;border:2mm solid var(--gold);object-fit:cover;box-shadow:0 3mm 9mm rgba(0,0,0,.55)}
+.bcover h1{font-family:'Lalezar',serif;font-weight:400;font-size:60pt;line-height:1;margin-top:3mm;text-shadow:0 1.2mm 4mm rgba(0,0,0,.45)}
 .bcover .tagl{font-family:'Lalezar',serif;font-size:22pt;color:var(--gold);letter-spacing:.6mm}
 .bcover .mn{margin-top:5mm;display:flex;align-items:center;gap:4mm;font-family:'Lalezar',serif;font-size:16pt;letter-spacing:2mm;color:#f3dcd2}
 .bcover .mn::before,.bcover .mn::after{content:"";width:24mm;height:.4mm;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
@@ -272,6 +272,17 @@ body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-pri
 .sig-grid .star .pr{position:absolute;top:36mm;left:4mm;width:19mm;height:19mm;font-size:17pt;box-shadow:0 1mm 3mm rgba(0,0,0,.35)}
 .sig-grid .star .tag{top:3mm;inset-inline-start:3mm;font-size:7pt;padding:.3mm 2.6mm}
 .intro{font-size:10pt;font-weight:700;line-height:1.7;color:#ecd9cf;text-align:center;max-width:150mm;margin:0 auto}
+
+/* بيانات التواصل على الغلاف */
+.cover-band{position:absolute;z-index:4;left:13mm;right:13mm;bottom:13mm;display:grid;grid-template-columns:1fr auto;gap:5mm 6mm;align-items:center;color:#fff}
+.cover-band .phones{display:grid;grid-template-columns:auto 1fr;gap:2mm 3.5mm;align-items:center;font-size:19pt;font-weight:900;line-height:1.1}
+.cover-band .phones i{font-style:normal;font-size:10pt;font-weight:900;color:var(--maroon-d);background:var(--gold);border-radius:9mm;padding:.5mm 3.2mm;text-align:center}
+.cover-band .phones span{direction:ltr;text-align:right;letter-spacing:.3mm}
+.cover-band .qrs{display:flex;gap:3.5mm}
+.cover-band .qrc{width:38mm}
+.cover-band .qrc img{width:31mm;height:31mm}
+.cover-band .qrc b{font-size:12pt}
+.cover-band .addr{grid-column:1/-1;font-size:12pt;font-weight:700;line-height:1.4;text-align:center;background:rgba(0,0,0,.25);border:.4mm solid rgba(242,174,0,.6);border-radius:3mm;padding:2.4mm 4mm}
 </style>
 </head>
 <body>
@@ -349,7 +360,18 @@ body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-pri
       <img class="logo" src="assets/logo.jpg" alt="">
       <h1>تشيلوس</h1>
       <div class="tagl">بيتزا · فطير · كريب</div>
-      <div class="mn">المنيو</div>
+    </div>
+    <div class="cover-band">
+      <div class="phones">
+        <i>واتساب</i><span>${esc(CONFIG.waDisplay)}</span>
+        <i>اتصال</i><span>${esc(CONFIG.phoneMobile)}</span>
+        <i>أرضي</i><span>${esc(CONFIG.phoneLandline)}</span>
+      </div>
+      <div class="qrs">
+        <div class="qrc"><img src="assets/qr-book.svg" alt=""><b>المنيو</b><span>على موبايلك</span></div>
+        <div class="qrc"><img src="assets/qr-site.svg" alt=""><b>موقعنا</b><span>اطلب أونلاين</span></div>
+      </div>
+      <div class="addr">📍 ${esc(CONFIG.address)}</div>
     </div>`);
 
   // 2) أطباق تشيلوس المميزة
@@ -440,7 +462,7 @@ body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-pri
 
   // 8) الضهر: كريب اللحوم + الحلو + أصناف أخرى + إضافات + مشروبات + التواصل
   const p8 = page("k-wine", `
-    <div class="cols" style="padding-top:11mm">
+    <div class="cols" style="padding-top:11mm;flex:none">
       <div class="col">
         <div class="row-t">${brush("كريب اللحوم", true)}<div class="stamp" style="--d:22mm"><img src="${HQ("crepe-meat")}" alt=""></div></div>
         ${body("crepe-meat", { desc: true })}
@@ -455,18 +477,8 @@ body{font-family:'Cairo',sans-serif;line-height:1.3;color:var(--ink);-webkit-pri
         <div class="drinks"><h4>🥤 يوجد مشروبات</h4><ul>${cat("drinks").groups[0].items.map(i => `<li><b>${esc(i.n)}:</b> ${esc(i.d)}</li>`).join("")}</ul></div>
       </div>
     </div>
-    <div class="back-band">
-      <div class="phones">
-        <i>واتساب</i><span>${esc(CONFIG.waDisplay)}</span>
-        <i>اتصال</i><span>${esc(CONFIG.phoneMobile)}</span>
-        <i>أرضي</i><span>${esc(CONFIG.phoneLandline)}</span>
-      </div>
-      <div class="qrs">
-        <div class="qrc"><img src="assets/qr-menu.svg" alt=""><b>المنيو</b><span>على موبايلك</span></div>
-        <div class="qrc"><img src="assets/qr-site.svg" alt=""><b>موقعنا</b><span>اطلب أونلاين</span></div>
-      </div>
-      <div class="addr">📍 ${esc(CONFIG.address)}</div>
-    </div>`);
+    <div class="arch" style="--h:auto;margin:3mm 0 0;flex:1 1 auto;min-height:40mm"><div class="ph"><img src="${HQ("other")}" alt=""></div>${L}</div>
+    ${folio(8)}`);
 
   document.getElementById("out").innerHTML = [p1, p2, p3, p4, p5, p6, p7, p8].join("");
 

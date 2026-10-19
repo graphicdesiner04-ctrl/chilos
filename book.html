@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>منيو تشيلوس — الكتاب</title>
+  <meta name="description" content="منيو تشيلوس كامل: بيتزا، فطير حادق وحلو، وكريب — تصفح صفحات المنيو على موبايلك.">
+  <meta name="theme-color" content="#3a0912">
+  <link rel="canonical" href="https://graphicdesiner04-ctrl.github.io/chilos/book.html">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="ar_EG">
+  <meta property="og:title" content="منيو تشيلوس Chilos">
+  <meta property="og:description" content="بيتزا · فطير · كريب — تصفح المنيو">
+  <meta property="og:url" content="https://graphicdesiner04-ctrl.github.io/chilos/book.html">
+  <meta property="og:image" content="https://graphicdesiner04-ctrl.github.io/chilos/assets/book/page-1.webp">
+  <link rel="icon" href="assets/icon.png" type="image/png" sizes="192x192">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <link rel="preload" as="image" href="assets/book/page-1.webp">
+  <style>
+    :root{--maroon:#7a1626;--deep:#2a070e;--gold:#f2ae00;--text:#f7e9e1}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{font-family:system-ui,"Segoe UI",Tahoma,sans-serif;background:radial-gradient(circle at 50% 0,#5a1020,var(--deep) 70%);color:var(--text);display:flex;flex-direction:column;min-height:100dvh;overflow:hidden}
+    a{color:inherit;text-decoration:none}
+    button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+    :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+
+    .top{flex:none;display:flex;align-items:center;gap:10px;padding:10px 14px;padding-top:calc(10px + env(safe-area-inset-top))}
+    .top img{width:38px;height:38px;border-radius:50%;border:2px solid var(--gold)}
+    .top h1{font-size:1.05rem;font-weight:800;flex:1}
+    .top h1 small{display:block;font-size:.72rem;font-weight:600;opacity:.75}
+    .dl{display:inline-flex;align-items:center;gap:6px;background:var(--gold);color:#3a0912;font-weight:800;font-size:.85rem;padding:7px 14px;border-radius:999px}
+
+    .track{flex:1;min-height:0;display:flex;overflow-x:auto;overflow-y:hidden;scroll-snap-type:x mandatory;scrollbar-width:none;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain}
+    .track::-webkit-scrollbar{display:none}
+    .slide{flex:0 0 100%;scroll-snap-align:center;display:flex;align-items:center;justify-content:center;padding:6px 12px;min-height:0}
+    .slide a{display:block;max-height:100%;line-height:0}
+    .slide img{display:block;max-width:100%;max-height:calc(100dvh - 128px);width:auto;height:auto;aspect-ratio:1240/1754;border-radius:6px;box-shadow:0 10px 30px rgba(0,0,0,.55);background:#3a0912}
+
+    .bar{flex:none;display:flex;align-items:center;justify-content:center;gap:14px;padding:10px 14px calc(12px + env(safe-area-inset-bottom))}
+    .nav{width:44px;height:44px;border-radius:50%;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);display:grid;place-items:center;font-size:1.3rem}
+    .nav:disabled{opacity:.3;cursor:default}
+    .count{min-width:72px;text-align:center;font-weight:800;font-size:.95rem}
+    .dots{display:flex;gap:6px}
+    .dots button{width:8px;height:8px;border-radius:50%;background:rgba(255,255,255,.3);padding:0}
+    .dots button[aria-current=true]{background:var(--gold);width:20px;border-radius:4px}
+    .hint{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,.6);padding:6px 14px;border-radius:999px;font-size:.8rem;pointer-events:none;transition:opacity .4s}
+
+    /* شاشة عريضة: صفحتين جنب بعض زي الكتاب المفتوح */
+    @media (min-width:1000px){
+      .slide{flex-basis:50%}
+      .slide:nth-child(odd){justify-content:flex-end}
+      .slide:nth-child(even){justify-content:flex-start}
+      .slide:first-child{flex-basis:100%;justify-content:center}
+      .hint{display:none}
+    }
+    @media (max-width:420px){.dots{display:none}}
+    @media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
+  </style>
+</head>
+<body>
+  <header class="top">
+    <img src="assets/icon-96.png" alt="" width="38" height="38">
+    <h1>منيو تشيلوس<small>بيتزا · فطير · كريب</small></h1>
+    <a class="dl" href="assets/book/Chilos-Menu-Book.pdf" download>⬇ PDF</a>
+  </header>
+
+  <main class="track" id="track" aria-label="صفحات المنيو" tabindex="0"></main>
+
+  <nav class="bar" aria-label="التنقل بين الصفحات">
+    <button class="nav" id="prev" type="button" aria-label="الصفحة السابقة">›</button>
+    <span class="count" id="count" aria-live="polite">1 من 8</span>
+    <div class="dots" id="dots"></div>
+    <button class="nav" id="next" type="button" aria-label="الصفحة التالية">‹</button>
+  </nav>
+  <div class="hint" id="hint">اسحب لتقليب الصفحات · اضغط على الصفحة لتكبيرها</div>
+
+  <script>
+  (() => {
+    "use strict";
+    const PAGES = 8;   // عدد صفحات الكتاب (assets/book/page-N.webp)
+    const track = document.getElementById("track"), dots = document.getElementById("dots");
+    const prev = document.getElementById("prev"), next = document.getElementById("next"), count = document.getElementById("count");
+    let cur = 0;
+
+    track.innerHTML = Array.from({ length: PAGES }, (_, i) => `
+      <section class="slide" aria-label="صفحة ${i + 1}">
+        <a href="assets/book/page-${i + 1}.webp" target="_blank" rel="noopener" aria-label="افتح صفحة ${i + 1} بحجم كامل">
+          <img src="assets/book/page-${i + 1}.webp" alt="منيو تشيلوس — صفحة ${i + 1}" width="1240" height="1754" ${i < 2 ? "" : 'loading="lazy"'} decoding="async">
+        </a>
+      </section>`).join("");
+    dots.innerHTML = Array.from({ length: PAGES }, (_, i) => `<button type="button" aria-label="صفحة ${i + 1}" aria-current="${i === 0}"></button>`).join("");
+    const slides = [...track.children];
+
+    function show(i) {
+      i = Math.max(0, Math.min(PAGES - 1, i));
+      // تقليب فوري بالأزرار (الحركة الناعمة بتتقطع على بعض الأجهزة)، والسحب بالصباع بيفضل ناعم
+      slides[i].scrollIntoView({ inline: "center", block: "nearest", behavior: "instant" });
+      mark(i);
+    }
+    function mark(i) {
+      cur = i;
+      count.textContent = `${i + 1} من ${PAGES}`;
+      [...dots.children].forEach((d, k) => d.setAttribute("aria-current", String(k === i)));
+      prev.disabled = i === 0; next.disabled = i === PAGES - 1;
+    }
+    const io = new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) mark(slides.indexOf(e.target)); }), { root: track, threshold: 0.6 });
+    slides.forEach(s => io.observe(s));
+
+    next.onclick = () => show(cur + 1);
+    prev.onclick = () => show(cur - 1);
+    dots.addEventListener("click", e => { const b = e.target.closest("button"); if (b) show([...dots.children].indexOf(b)); });
+    // الكتاب عربي: السهم الشمال = الصفحة الجاية
+    document.addEventListener("keydown", e => {
+      if (e.key === "ArrowLeft") show(cur + 1);
+      else if (e.key === "ArrowRight") show(cur - 1);
+    });
+    setTimeout(() => (document.getElementById("hint").style.opacity = "0"), 3500);
+    mark(0);
+  })();
+  </script>
+</body>
+</html>
