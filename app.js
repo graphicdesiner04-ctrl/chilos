@@ -16,6 +16,7 @@
   const EMENU = document.body.dataset.mode === "emenu";
   ["#heroWa", "#fab", "#hdrWa", "#emWa"].forEach(s => set(s, el => (el.href = waHello)));
   set("#tAddr", el => (el.textContent = CONFIG.address));
+  set("#tWa", el => { el.textContent = CONFIG.waDisplay; el.href = waHello; });
   set("#tMobile", el => { el.textContent = CONFIG.phoneMobile; el.href = `tel:${CONFIG.phoneMobile}`; });
   set("#tLand", el => { el.textContent = CONFIG.phoneLandline; el.href = `tel:${CONFIG.phoneLandline}`; });
   ["#callBtn", "#emCall"].forEach(s => set(s, el => (el.href = `tel:${CONFIG.phoneMobile}`)));

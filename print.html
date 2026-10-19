@@ -165,7 +165,7 @@ body{font-family:'Cairo',sans-serif;color:var(--ink);-webkit-print-color-adjust:
       ${AI ? '<div class="photos-note">الصور توضيحية</div>' : ""}
       <div class="cstar">${chilosStar}</div>
       <div class="qr"><img src="assets/qr-menu.svg" alt=""><div><b>المنيو الإلكتروني</b><span>امسح الكود وشوف المنيو كامل على موبايلك واطلب على واتساب</span></div></div>
-      <div class="phones"><span>📱 ${esc(CONFIG.phoneMobile)} <small>واتساب</small></span><span>☎ ${esc(CONFIG.phoneLandline)}</span></div>
+      <div class="phones"><span><small>واتساب</small> ${esc(CONFIG.waDisplay)}</span><span><small>اتصال</small> ${esc(CONFIG.phoneMobile)}</span><span><small>أرضي</small> ${esc(CONFIG.phoneLandline)}</span></div>
       <div class="addr">📍 ${esc(CONFIG.address)}</div>
     </div>`;
 

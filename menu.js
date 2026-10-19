@@ -4,8 +4,9 @@
 const CONFIG = {
   name: "تشيلوس",
   nameEn: "Chilos",
-  waNumber: "201010133931",          // رقم الواتساب بصيغة دولية بدون + أو أصفار
-  phoneMobile: "01010133931",
+  waNumber: "201098279899",          // رقم الواتساب بصيغة دولية بدون + أو أصفار
+  waDisplay: "01098279899",          // رقم الواتساب زي ما بيتكتب للزبون
+  phoneMobile: "01010133931",        // اتصال فقط
   phoneLandline: "0223491110",
   address: "3 ابراهيم نوار الموازي لأحمد فخري، خلف مستشفى حسبو، مدينة نصر",
   mapsUrl: "https://www.google.com/maps/search/?api=1&query=" +
